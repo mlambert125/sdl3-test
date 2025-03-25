@@ -4,22 +4,15 @@
 #include <lua.h>
 #include <lauxlib.h>
 #include <lualib.h>
-
-constexpr int MAX_TEXTURES = 100;
+#include <stdlib.h>
 
 SDL_Window *window = nullptr;
 SDL_Renderer *renderer = nullptr;
-SDL_Texture *textures[MAX_TEXTURES];
+SDL_Texture **textTextures = nullptr;
 int textureCount = 0;
 
 int drawString(lua_State *L) {
-    TTF_Font *font = nullptr;
-    font = TTF_OpenFont("resources/DejaVuSans.ttf", 36);
-
-    if (textureCount >= MAX_TEXTURES) {
-        fprintf(stderr, "Texture limit reached\n");
-        return 0;
-    }
+    TTF_Font *font = TTF_OpenFont("resources/DejaVuSans.ttf", 36);
     const char *text = luaL_checkstring(L, 1);
     const int x = luaL_checkinteger(L, 2);
     const int y = luaL_checkinteger(L, 3);
@@ -28,12 +21,16 @@ int drawString(lua_State *L) {
 
     SDL_Surface *surfaceText = TTF_RenderText_Blended(font, text, strlen(text), (SDL_Color){255, 255, 255, 255});
     SDL_Texture *textureText = SDL_CreateTextureFromSurface(renderer, surfaceText);
-    textures[textureCount++] = textureText;
+
+    textTextures = realloc(textTextures, sizeof(SDL_Texture *) * (textureCount + 1));
+
+    textTextures[textureCount++] = textureText;
+
     SDL_DestroySurface(surfaceText);
 
     int textWidth, textHeight;
-
     TTF_GetStringSize(font, text, strlen(text), &textWidth, &textHeight);
+
     SDL_RenderTexture(renderer, textureText, nullptr, &(SDL_FRect){x, y, textWidth, textHeight});
 
     TTF_CloseFont(font);
@@ -77,8 +74,9 @@ int main() {
 
 cleanup:
     for (int i = 0; i < textureCount; i++) {
-        SDL_DestroyTexture(textures[i]);
+        SDL_DestroyTexture(textTextures[i]);
     }
+    free(textTextures);
     SDL_DestroyRenderer(renderer);
     SDL_DestroyWindow(window);
     SDL_Quit();
