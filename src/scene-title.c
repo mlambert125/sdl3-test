@@ -2,7 +2,7 @@
 #include <SDL3/SDL_render.h>
 #include <SDL3_ttf/SDL_ttf.h>
 #include "../include/scene-title.h"
-#include "../include/scene-game.h"
+#include "../include/scene-map.h"
 
 Scene scene_title_create() {
     return (Scene){.init = scene_title_init,
@@ -14,7 +14,6 @@ Scene scene_title_create() {
 
 void scene_title_init(Scene *self, GlobalGameState *globalGameState, SDL_Renderer *renderer) {
     SceneTitleData *data = (SceneTitleData *)malloc(sizeof(SceneTitleData));
-    data->counter = 0;
     self->data = data;
 }
 
@@ -30,7 +29,7 @@ SceneUpdateResult scene_title_update(Scene *self, GlobalGameState *globalGameSta
         case SDLK_Q:
             return (SceneUpdateResult){.nextScene = nullptr, .shouldQuit = true};
         case SDLK_SPACE:
-            return (SceneUpdateResult){.nextScene = scene_game_create, .shouldQuit = false};
+            return (SceneUpdateResult){.nextScene = scene_map_create, .shouldQuit = false};
         default:
             return (SceneUpdateResult){.nextScene = nullptr, .shouldQuit = false};
         }

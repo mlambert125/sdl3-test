@@ -12,7 +12,7 @@ set(SourceFiles
     src/main.c
     src/game-state.c
     src/scene-title.c
-    src/scene-game.c
+    src/scene-map.c
 )
 
 add_executable(${PROJECT_NAME} ${SourceFiles})

@@ -5,7 +5,7 @@
 #include <lua.h>
 #include <lauxlib.h>
 #include <lualib.h>
-#include "../include/scene-game.h"
+#include "../include/scene-map.h"
 #include "../include/scene-title.h"
 
 char *testScript = "drawString('Lua Calculating Squares:')\n"
@@ -23,7 +23,7 @@ int drawString(lua_State *L) {
     GlobalGameState *globalGameState = lua_touserdata(L, -1);
 
     lua_getglobal(L, "sceneState");
-    SceneGameData *data = lua_touserdata(L, -1);
+    SceneMapData *data = lua_touserdata(L, -1);
 
     SDL_Surface *surface =
         TTF_RenderText_Blended(globalGameState->fontDejaVuSans, text, strlen(text), (SDL_Color){255, 255, 255, 255});
@@ -36,16 +36,16 @@ int drawString(lua_State *L) {
     return 0;
 }
 
-Scene scene_game_create() {
-    return (Scene){.init = scene_game_init,
-                   .update = scene_game_update,
-                   .draw = scene_game_draw,
-                   .destroy = scene_game_destroy,
+Scene scene_map_create() {
+    return (Scene){.init = scene_map_init,
+                   .update = scene_map_update,
+                   .draw = scene_map_draw,
+                   .destroy = scene_map_destroy,
                    .data = nullptr};
 }
 
-void scene_game_init(Scene *self, GlobalGameState *globalGameState, SDL_Renderer *renderer) {
-    SceneGameData *data = (SceneGameData *)malloc(sizeof(SceneGameData));
+void scene_map_init(Scene *self, GlobalGameState *globalGameState, SDL_Renderer *renderer) {
+    SceneMapData *data = (SceneMapData *)malloc(sizeof(SceneMapData));
     data->L = luaL_newstate();
     luaL_openlibs(data->L);
     self->data = data;
@@ -66,7 +66,7 @@ void scene_game_init(Scene *self, GlobalGameState *globalGameState, SDL_Renderer
     luaL_dostring(data->L, testScript);
 }
 
-SceneUpdateResult scene_game_update(Scene *self, GlobalGameState *globalGameState, SDL_Renderer *renderer) {
+SceneUpdateResult scene_map_update(Scene *self, GlobalGameState *globalGameState, SDL_Renderer *renderer) {
     SDL_Event event;
     SDL_PollEvent(&event);
 
@@ -87,11 +87,11 @@ SceneUpdateResult scene_game_update(Scene *self, GlobalGameState *globalGameStat
     }
 }
 
-void scene_game_draw(Scene *self, GlobalGameState *globalGameState, SDL_Renderer *renderer) {
+void scene_map_draw(Scene *self, GlobalGameState *globalGameState, SDL_Renderer *renderer) {
     SDL_SetRenderDrawColor(renderer, 0, 0, 255, 255);
     SDL_RenderClear(renderer);
 
-    SceneGameData *data = (SceneGameData *)self->data;
+    SceneMapData *data = (SceneMapData *)self->data;
 
     for (int i = 0; i < data->textTextureCount; i++) {
         SDL_Texture *texture = data->textTextures[i];
@@ -102,8 +102,8 @@ void scene_game_draw(Scene *self, GlobalGameState *globalGameState, SDL_Renderer
     }
 }
 
-void scene_game_destroy(Scene *self, GlobalGameState *globalGameState, SDL_Renderer *renderer) {
-    SceneGameData *data = (SceneGameData *)self->data;
+void scene_map_destroy(Scene *self, GlobalGameState *globalGameState, SDL_Renderer *renderer) {
+    SceneMapData *data = (SceneMapData *)self->data;
     lua_close(data->L);
     for (int i = 0; i < data->textTextureCount; i++) {
         SDL_DestroyTexture(data->textTextures[i]);
