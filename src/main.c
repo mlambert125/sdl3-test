@@ -17,8 +17,6 @@ int drawString(lua_State *L) {
     const int x = luaL_checkinteger(L, 2);
     const int y = luaL_checkinteger(L, 3);
 
-    printf("Drawing text: %s at (%d, %d)\n", text, x, y);
-
     SDL_Surface *surfaceText = TTF_RenderText_Blended(font, text, strlen(text), (SDL_Color){255, 255, 255, 255});
     SDL_Texture *textureText = SDL_CreateTextureFromSurface(renderer, surfaceText);
 
