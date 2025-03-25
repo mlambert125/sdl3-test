@@ -1,63 +1,53 @@
 #include <stdio.h>
 #include <SDL3/SDL.h>
 #include <SDL3_ttf/SDL_ttf.h>
+#include <lua.h>
+#include <lauxlib.h>
+#include <lualib.h>
+
+char *message = "Hello, SDL3!";
+
+int setMessage(lua_State *L) {
+    const char *newMessage = luaL_checkstring(L, 1);
+    message = (char *)newMessage;
+    return 0;
+}
 
 int main() {
     SDL_Window *window = nullptr;
     SDL_Renderer *renderer = nullptr;
     TTF_Font *font = nullptr;
+    lua_State *L = luaL_newstate();
 
-    if (!SDL_Init(SDL_INIT_VIDEO)) {
-        fprintf(stderr, "SDL_Init Error: %s\n", SDL_GetError());
-        return 1;
-    }
+    SDL_Init(SDL_INIT_VIDEO);
+    TTF_Init();
 
-    if (!TTF_Init()) {
-        fprintf(stderr, "TTF_Init Error: %s\n", SDL_GetError());
-        SDL_Quit();
-        return 1;
-    }
-
-    font = TTF_OpenFont("resources/DejaVuSans.ttf", 24);
-    if (!font) {
-        SDL_Log("Couldn't open font: %s\n", SDL_GetError());
-        return SDL_APP_FAILURE;
-    }
-
+    font = TTF_OpenFont("resources/DejaVuSans.ttf", 36);
     window = SDL_CreateWindow("SDL3 Window", 640, 480, 0);
-    if (window == nullptr) {
-        fprintf(stderr, "SDL_CreateWindow Error: %s\n", SDL_GetError());
-        SDL_Quit();
-        return 1;
-    }
-
     renderer = SDL_CreateRenderer(window, nullptr);
-    if (renderer == nullptr) {
-        fprintf(stderr, "SDL_CreateRenderer Error: %s\n", SDL_GetError());
-        SDL_DestroyWindow(window);
-        SDL_Quit();
-        return 1;
-    }
 
     SDL_SetRenderDrawColor(renderer, 0, 0, 255, 255);
     SDL_RenderClear(renderer);
 
-    SDL_Surface *surface = TTF_RenderText_Blended(font, "Hello, SDL3!", 12, (SDL_Color){255, 255, 255, 255});
-    if (!surface) {
-        SDL_Log("TTF_RenderText_Solid Error: %s\n", SDL_GetError());
-        goto cleanup;
+    luaL_openlibs(L);
+    lua_pushcfunction(L, setMessage);
+    lua_setglobal(L, "setMessage");
+
+    if (luaL_dostring(L, "setMessage('Hello from a lua script!')") != LUA_OK) {
+        fprintf(stderr, "Error: %s\n", lua_tostring(L, -1));
+        lua_pop(L, 1);
     }
 
-    SDL_Texture *texture = SDL_CreateTextureFromSurface(renderer, surface);
-    if (!texture) {
-        SDL_Log("SDL_CreateTextureFromSurface Error: %s\n", SDL_GetError());
-        SDL_DestroySurface(surface);
-        goto cleanup;
-    }
+    SDL_Surface *surfaceText = TTF_RenderText_Blended(font, message, strlen(message), (SDL_Color){255, 255, 255, 255});
+    SDL_Texture *textureText = SDL_CreateTextureFromSurface(renderer, surfaceText);
+    SDL_DestroySurface(surfaceText);
 
-    SDL_DestroySurface(surface);
-    SDL_RenderTexture(renderer, texture, nullptr, &(SDL_FRect){ 100, 100, 200, 50 });
+    int w, h;
+    TTF_GetStringSize(font, message, strlen(message), &w, &h);
 
+    printf("Text width: %d, height: %d\n", w, h);
+
+    SDL_RenderTexture(renderer, textureText, nullptr, &(SDL_FRect){10, 100, w, h});
     SDL_RenderPresent(renderer);
 
     while (1) {
@@ -75,6 +65,7 @@ cleanup:
     SDL_DestroyRenderer(renderer);
     SDL_DestroyWindow(window);
     SDL_Quit();
+    lua_close(L);
 
     return 0;
 }

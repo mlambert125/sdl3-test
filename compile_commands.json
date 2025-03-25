@@ -1,7 +1,7 @@
 [
 {
   "directory": "/home/mikel/projects/sdl3-test",
-  "command": "/usr/bin/cc  -I/home/mikel/projects/sdl3-test/vendored/SDL/include-revision -I/home/mikel/projects/sdl3-test/vendored/SDL/include -I/home/mikel/projects/sdl3-test/vendored/SDL_ttf/include -std=gnu2x -fPIE -o CMakeFiles/sdl3.dir/src/main.c.o -c /home/mikel/projects/sdl3-test/src/main.c",
+  "command": "/usr/bin/cc  -I/home/mikel/projects/sdl3-test/vendored/SDL/include-revision -I/home/mikel/projects/sdl3-test/vendored/SDL/include -I/home/mikel/projects/sdl3-test/vendored/SDL_ttf/include -I/home/mikel/projects/sdl3-test/vendored/lua/lua-5.4.7/include -std=gnu2x -fPIE -o CMakeFiles/sdl3.dir/src/main.c.o -c /home/mikel/projects/sdl3-test/src/main.c",
   "file": "/home/mikel/projects/sdl3-test/src/main.c",
   "output": "CMakeFiles/sdl3.dir/src/main.c.o"
 },
@@ -1924,5 +1924,395 @@
   "command": "/usr/bin/cc -DBUILD_SDL -DDLL_EXPORT -DSDL_BUILD_MAJOR_VERSION=3 -DSDL_BUILD_MICRO_VERSION=0 -DSDL_BUILD_MINOR_VERSION=3 -DTTF_USE_HARFBUZZ=1 -I/home/mikel/projects/sdl3-test/vendored/SDL_ttf/include -I/home/mikel/projects/sdl3-test/vendored/SDL/include-revision -I/home/mikel/projects/sdl3-test/vendored/SDL/include -isystem /usr/include/harfbuzz -isystem /usr/include/freetype2 -std=gnu2x -fPIC -fvisibility=hidden -Wall -Wextra -o CMakeFiles/SDL3_ttf-shared.dir/src/SDL_ttf.c.o -c /home/mikel/projects/sdl3-test/vendored/SDL_ttf/src/SDL_ttf.c",
   "file": "/home/mikel/projects/sdl3-test/vendored/SDL_ttf/src/SDL_ttf.c",
   "output": "vendored/SDL_ttf/CMakeFiles/SDL3_ttf-shared.dir/src/SDL_ttf.c.o"
+},
+{
+  "directory": "/home/mikel/projects/sdl3-test/vendored/lua/lua-5.4.7",
+  "command": "/usr/bin/cc -DLUA_USE_POSIX -I/home/mikel/projects/sdl3-test/vendored/lua/lua-5.4.7/include -std=gnu2x -fPIC -Wall -Wextra -o CMakeFiles/lua_static.dir/src/lapi.c.o -c /home/mikel/projects/sdl3-test/vendored/lua/lua-5.4.7/src/lapi.c",
+  "file": "/home/mikel/projects/sdl3-test/vendored/lua/lua-5.4.7/src/lapi.c",
+  "output": "vendored/lua/lua-5.4.7/CMakeFiles/lua_static.dir/src/lapi.c.o"
+},
+{
+  "directory": "/home/mikel/projects/sdl3-test/vendored/lua/lua-5.4.7",
+  "command": "/usr/bin/cc -DLUA_USE_POSIX -I/home/mikel/projects/sdl3-test/vendored/lua/lua-5.4.7/include -std=gnu2x -fPIC -Wall -Wextra -o CMakeFiles/lua_static.dir/src/lcode.c.o -c /home/mikel/projects/sdl3-test/vendored/lua/lua-5.4.7/src/lcode.c",
+  "file": "/home/mikel/projects/sdl3-test/vendored/lua/lua-5.4.7/src/lcode.c",
+  "output": "vendored/lua/lua-5.4.7/CMakeFiles/lua_static.dir/src/lcode.c.o"
+},
+{
+  "directory": "/home/mikel/projects/sdl3-test/vendored/lua/lua-5.4.7",
+  "command": "/usr/bin/cc -DLUA_USE_POSIX -I/home/mikel/projects/sdl3-test/vendored/lua/lua-5.4.7/include -std=gnu2x -fPIC -Wall -Wextra -o CMakeFiles/lua_static.dir/src/lctype.c.o -c /home/mikel/projects/sdl3-test/vendored/lua/lua-5.4.7/src/lctype.c",
+  "file": "/home/mikel/projects/sdl3-test/vendored/lua/lua-5.4.7/src/lctype.c",
+  "output": "vendored/lua/lua-5.4.7/CMakeFiles/lua_static.dir/src/lctype.c.o"
+},
+{
+  "directory": "/home/mikel/projects/sdl3-test/vendored/lua/lua-5.4.7",
+  "command": "/usr/bin/cc -DLUA_USE_POSIX -I/home/mikel/projects/sdl3-test/vendored/lua/lua-5.4.7/include -std=gnu2x -fPIC -Wall -Wextra -o CMakeFiles/lua_static.dir/src/ldebug.c.o -c /home/mikel/projects/sdl3-test/vendored/lua/lua-5.4.7/src/ldebug.c",
+  "file": "/home/mikel/projects/sdl3-test/vendored/lua/lua-5.4.7/src/ldebug.c",
+  "output": "vendored/lua/lua-5.4.7/CMakeFiles/lua_static.dir/src/ldebug.c.o"
+},
+{
+  "directory": "/home/mikel/projects/sdl3-test/vendored/lua/lua-5.4.7",
+  "command": "/usr/bin/cc -DLUA_USE_POSIX -I/home/mikel/projects/sdl3-test/vendored/lua/lua-5.4.7/include -std=gnu2x -fPIC -Wall -Wextra -o CMakeFiles/lua_static.dir/src/ldo.c.o -c /home/mikel/projects/sdl3-test/vendored/lua/lua-5.4.7/src/ldo.c",
+  "file": "/home/mikel/projects/sdl3-test/vendored/lua/lua-5.4.7/src/ldo.c",
+  "output": "vendored/lua/lua-5.4.7/CMakeFiles/lua_static.dir/src/ldo.c.o"
+},
+{
+  "directory": "/home/mikel/projects/sdl3-test/vendored/lua/lua-5.4.7",
+  "command": "/usr/bin/cc -DLUA_USE_POSIX -I/home/mikel/projects/sdl3-test/vendored/lua/lua-5.4.7/include -std=gnu2x -fPIC -Wall -Wextra -o CMakeFiles/lua_static.dir/src/ldump.c.o -c /home/mikel/projects/sdl3-test/vendored/lua/lua-5.4.7/src/ldump.c",
+  "file": "/home/mikel/projects/sdl3-test/vendored/lua/lua-5.4.7/src/ldump.c",
+  "output": "vendored/lua/lua-5.4.7/CMakeFiles/lua_static.dir/src/ldump.c.o"
+},
+{
+  "directory": "/home/mikel/projects/sdl3-test/vendored/lua/lua-5.4.7",
+  "command": "/usr/bin/cc -DLUA_USE_POSIX -I/home/mikel/projects/sdl3-test/vendored/lua/lua-5.4.7/include -std=gnu2x -fPIC -Wall -Wextra -o CMakeFiles/lua_static.dir/src/lfunc.c.o -c /home/mikel/projects/sdl3-test/vendored/lua/lua-5.4.7/src/lfunc.c",
+  "file": "/home/mikel/projects/sdl3-test/vendored/lua/lua-5.4.7/src/lfunc.c",
+  "output": "vendored/lua/lua-5.4.7/CMakeFiles/lua_static.dir/src/lfunc.c.o"
+},
+{
+  "directory": "/home/mikel/projects/sdl3-test/vendored/lua/lua-5.4.7",
+  "command": "/usr/bin/cc -DLUA_USE_POSIX -I/home/mikel/projects/sdl3-test/vendored/lua/lua-5.4.7/include -std=gnu2x -fPIC -Wall -Wextra -o CMakeFiles/lua_static.dir/src/lgc.c.o -c /home/mikel/projects/sdl3-test/vendored/lua/lua-5.4.7/src/lgc.c",
+  "file": "/home/mikel/projects/sdl3-test/vendored/lua/lua-5.4.7/src/lgc.c",
+  "output": "vendored/lua/lua-5.4.7/CMakeFiles/lua_static.dir/src/lgc.c.o"
+},
+{
+  "directory": "/home/mikel/projects/sdl3-test/vendored/lua/lua-5.4.7",
+  "command": "/usr/bin/cc -DLUA_USE_POSIX -I/home/mikel/projects/sdl3-test/vendored/lua/lua-5.4.7/include -std=gnu2x -fPIC -Wall -Wextra -o CMakeFiles/lua_static.dir/src/llex.c.o -c /home/mikel/projects/sdl3-test/vendored/lua/lua-5.4.7/src/llex.c",
+  "file": "/home/mikel/projects/sdl3-test/vendored/lua/lua-5.4.7/src/llex.c",
+  "output": "vendored/lua/lua-5.4.7/CMakeFiles/lua_static.dir/src/llex.c.o"
+},
+{
+  "directory": "/home/mikel/projects/sdl3-test/vendored/lua/lua-5.4.7",
+  "command": "/usr/bin/cc -DLUA_USE_POSIX -I/home/mikel/projects/sdl3-test/vendored/lua/lua-5.4.7/include -std=gnu2x -fPIC -Wall -Wextra -o CMakeFiles/lua_static.dir/src/lmem.c.o -c /home/mikel/projects/sdl3-test/vendored/lua/lua-5.4.7/src/lmem.c",
+  "file": "/home/mikel/projects/sdl3-test/vendored/lua/lua-5.4.7/src/lmem.c",
+  "output": "vendored/lua/lua-5.4.7/CMakeFiles/lua_static.dir/src/lmem.c.o"
+},
+{
+  "directory": "/home/mikel/projects/sdl3-test/vendored/lua/lua-5.4.7",
+  "command": "/usr/bin/cc -DLUA_USE_POSIX -I/home/mikel/projects/sdl3-test/vendored/lua/lua-5.4.7/include -std=gnu2x -fPIC -Wall -Wextra -o CMakeFiles/lua_static.dir/src/lobject.c.o -c /home/mikel/projects/sdl3-test/vendored/lua/lua-5.4.7/src/lobject.c",
+  "file": "/home/mikel/projects/sdl3-test/vendored/lua/lua-5.4.7/src/lobject.c",
+  "output": "vendored/lua/lua-5.4.7/CMakeFiles/lua_static.dir/src/lobject.c.o"
+},
+{
+  "directory": "/home/mikel/projects/sdl3-test/vendored/lua/lua-5.4.7",
+  "command": "/usr/bin/cc -DLUA_USE_POSIX -I/home/mikel/projects/sdl3-test/vendored/lua/lua-5.4.7/include -std=gnu2x -fPIC -Wall -Wextra -o CMakeFiles/lua_static.dir/src/lopcodes.c.o -c /home/mikel/projects/sdl3-test/vendored/lua/lua-5.4.7/src/lopcodes.c",
+  "file": "/home/mikel/projects/sdl3-test/vendored/lua/lua-5.4.7/src/lopcodes.c",
+  "output": "vendored/lua/lua-5.4.7/CMakeFiles/lua_static.dir/src/lopcodes.c.o"
+},
+{
+  "directory": "/home/mikel/projects/sdl3-test/vendored/lua/lua-5.4.7",
+  "command": "/usr/bin/cc -DLUA_USE_POSIX -I/home/mikel/projects/sdl3-test/vendored/lua/lua-5.4.7/include -std=gnu2x -fPIC -Wall -Wextra -o CMakeFiles/lua_static.dir/src/lparser.c.o -c /home/mikel/projects/sdl3-test/vendored/lua/lua-5.4.7/src/lparser.c",
+  "file": "/home/mikel/projects/sdl3-test/vendored/lua/lua-5.4.7/src/lparser.c",
+  "output": "vendored/lua/lua-5.4.7/CMakeFiles/lua_static.dir/src/lparser.c.o"
+},
+{
+  "directory": "/home/mikel/projects/sdl3-test/vendored/lua/lua-5.4.7",
+  "command": "/usr/bin/cc -DLUA_USE_POSIX -I/home/mikel/projects/sdl3-test/vendored/lua/lua-5.4.7/include -std=gnu2x -fPIC -Wall -Wextra -o CMakeFiles/lua_static.dir/src/lstate.c.o -c /home/mikel/projects/sdl3-test/vendored/lua/lua-5.4.7/src/lstate.c",
+  "file": "/home/mikel/projects/sdl3-test/vendored/lua/lua-5.4.7/src/lstate.c",
+  "output": "vendored/lua/lua-5.4.7/CMakeFiles/lua_static.dir/src/lstate.c.o"
+},
+{
+  "directory": "/home/mikel/projects/sdl3-test/vendored/lua/lua-5.4.7",
+  "command": "/usr/bin/cc -DLUA_USE_POSIX -I/home/mikel/projects/sdl3-test/vendored/lua/lua-5.4.7/include -std=gnu2x -fPIC -Wall -Wextra -o CMakeFiles/lua_static.dir/src/lstring.c.o -c /home/mikel/projects/sdl3-test/vendored/lua/lua-5.4.7/src/lstring.c",
+  "file": "/home/mikel/projects/sdl3-test/vendored/lua/lua-5.4.7/src/lstring.c",
+  "output": "vendored/lua/lua-5.4.7/CMakeFiles/lua_static.dir/src/lstring.c.o"
+},
+{
+  "directory": "/home/mikel/projects/sdl3-test/vendored/lua/lua-5.4.7",
+  "command": "/usr/bin/cc -DLUA_USE_POSIX -I/home/mikel/projects/sdl3-test/vendored/lua/lua-5.4.7/include -std=gnu2x -fPIC -Wall -Wextra -o CMakeFiles/lua_static.dir/src/ltable.c.o -c /home/mikel/projects/sdl3-test/vendored/lua/lua-5.4.7/src/ltable.c",
+  "file": "/home/mikel/projects/sdl3-test/vendored/lua/lua-5.4.7/src/ltable.c",
+  "output": "vendored/lua/lua-5.4.7/CMakeFiles/lua_static.dir/src/ltable.c.o"
+},
+{
+  "directory": "/home/mikel/projects/sdl3-test/vendored/lua/lua-5.4.7",
+  "command": "/usr/bin/cc -DLUA_USE_POSIX -I/home/mikel/projects/sdl3-test/vendored/lua/lua-5.4.7/include -std=gnu2x -fPIC -Wall -Wextra -o CMakeFiles/lua_static.dir/src/ltm.c.o -c /home/mikel/projects/sdl3-test/vendored/lua/lua-5.4.7/src/ltm.c",
+  "file": "/home/mikel/projects/sdl3-test/vendored/lua/lua-5.4.7/src/ltm.c",
+  "output": "vendored/lua/lua-5.4.7/CMakeFiles/lua_static.dir/src/ltm.c.o"
+},
+{
+  "directory": "/home/mikel/projects/sdl3-test/vendored/lua/lua-5.4.7",
+  "command": "/usr/bin/cc -DLUA_USE_POSIX -I/home/mikel/projects/sdl3-test/vendored/lua/lua-5.4.7/include -std=gnu2x -fPIC -Wall -Wextra -o CMakeFiles/lua_static.dir/src/lundump.c.o -c /home/mikel/projects/sdl3-test/vendored/lua/lua-5.4.7/src/lundump.c",
+  "file": "/home/mikel/projects/sdl3-test/vendored/lua/lua-5.4.7/src/lundump.c",
+  "output": "vendored/lua/lua-5.4.7/CMakeFiles/lua_static.dir/src/lundump.c.o"
+},
+{
+  "directory": "/home/mikel/projects/sdl3-test/vendored/lua/lua-5.4.7",
+  "command": "/usr/bin/cc -DLUA_USE_POSIX -I/home/mikel/projects/sdl3-test/vendored/lua/lua-5.4.7/include -std=gnu2x -fPIC -Wall -Wextra -o CMakeFiles/lua_static.dir/src/lvm.c.o -c /home/mikel/projects/sdl3-test/vendored/lua/lua-5.4.7/src/lvm.c",
+  "file": "/home/mikel/projects/sdl3-test/vendored/lua/lua-5.4.7/src/lvm.c",
+  "output": "vendored/lua/lua-5.4.7/CMakeFiles/lua_static.dir/src/lvm.c.o"
+},
+{
+  "directory": "/home/mikel/projects/sdl3-test/vendored/lua/lua-5.4.7",
+  "command": "/usr/bin/cc -DLUA_USE_POSIX -I/home/mikel/projects/sdl3-test/vendored/lua/lua-5.4.7/include -std=gnu2x -fPIC -Wall -Wextra -o CMakeFiles/lua_static.dir/src/lzio.c.o -c /home/mikel/projects/sdl3-test/vendored/lua/lua-5.4.7/src/lzio.c",
+  "file": "/home/mikel/projects/sdl3-test/vendored/lua/lua-5.4.7/src/lzio.c",
+  "output": "vendored/lua/lua-5.4.7/CMakeFiles/lua_static.dir/src/lzio.c.o"
+},
+{
+  "directory": "/home/mikel/projects/sdl3-test/vendored/lua/lua-5.4.7",
+  "command": "/usr/bin/cc -DLUA_USE_POSIX -I/home/mikel/projects/sdl3-test/vendored/lua/lua-5.4.7/include -std=gnu2x -fPIC -Wall -Wextra -o CMakeFiles/lua_static.dir/src/lauxlib.c.o -c /home/mikel/projects/sdl3-test/vendored/lua/lua-5.4.7/src/lauxlib.c",
+  "file": "/home/mikel/projects/sdl3-test/vendored/lua/lua-5.4.7/src/lauxlib.c",
+  "output": "vendored/lua/lua-5.4.7/CMakeFiles/lua_static.dir/src/lauxlib.c.o"
+},
+{
+  "directory": "/home/mikel/projects/sdl3-test/vendored/lua/lua-5.4.7",
+  "command": "/usr/bin/cc -DLUA_USE_POSIX -I/home/mikel/projects/sdl3-test/vendored/lua/lua-5.4.7/include -std=gnu2x -fPIC -Wall -Wextra -o CMakeFiles/lua_static.dir/src/lbaselib.c.o -c /home/mikel/projects/sdl3-test/vendored/lua/lua-5.4.7/src/lbaselib.c",
+  "file": "/home/mikel/projects/sdl3-test/vendored/lua/lua-5.4.7/src/lbaselib.c",
+  "output": "vendored/lua/lua-5.4.7/CMakeFiles/lua_static.dir/src/lbaselib.c.o"
+},
+{
+  "directory": "/home/mikel/projects/sdl3-test/vendored/lua/lua-5.4.7",
+  "command": "/usr/bin/cc -DLUA_USE_POSIX -I/home/mikel/projects/sdl3-test/vendored/lua/lua-5.4.7/include -std=gnu2x -fPIC -Wall -Wextra -o CMakeFiles/lua_static.dir/src/lcorolib.c.o -c /home/mikel/projects/sdl3-test/vendored/lua/lua-5.4.7/src/lcorolib.c",
+  "file": "/home/mikel/projects/sdl3-test/vendored/lua/lua-5.4.7/src/lcorolib.c",
+  "output": "vendored/lua/lua-5.4.7/CMakeFiles/lua_static.dir/src/lcorolib.c.o"
+},
+{
+  "directory": "/home/mikel/projects/sdl3-test/vendored/lua/lua-5.4.7",
+  "command": "/usr/bin/cc -DLUA_USE_POSIX -I/home/mikel/projects/sdl3-test/vendored/lua/lua-5.4.7/include -std=gnu2x -fPIC -Wall -Wextra -o CMakeFiles/lua_static.dir/src/ldblib.c.o -c /home/mikel/projects/sdl3-test/vendored/lua/lua-5.4.7/src/ldblib.c",
+  "file": "/home/mikel/projects/sdl3-test/vendored/lua/lua-5.4.7/src/ldblib.c",
+  "output": "vendored/lua/lua-5.4.7/CMakeFiles/lua_static.dir/src/ldblib.c.o"
+},
+{
+  "directory": "/home/mikel/projects/sdl3-test/vendored/lua/lua-5.4.7",
+  "command": "/usr/bin/cc -DLUA_USE_POSIX -I/home/mikel/projects/sdl3-test/vendored/lua/lua-5.4.7/include -std=gnu2x -fPIC -Wall -Wextra -o CMakeFiles/lua_static.dir/src/liolib.c.o -c /home/mikel/projects/sdl3-test/vendored/lua/lua-5.4.7/src/liolib.c",
+  "file": "/home/mikel/projects/sdl3-test/vendored/lua/lua-5.4.7/src/liolib.c",
+  "output": "vendored/lua/lua-5.4.7/CMakeFiles/lua_static.dir/src/liolib.c.o"
+},
+{
+  "directory": "/home/mikel/projects/sdl3-test/vendored/lua/lua-5.4.7",
+  "command": "/usr/bin/cc -DLUA_USE_POSIX -I/home/mikel/projects/sdl3-test/vendored/lua/lua-5.4.7/include -std=gnu2x -fPIC -Wall -Wextra -o CMakeFiles/lua_static.dir/src/lmathlib.c.o -c /home/mikel/projects/sdl3-test/vendored/lua/lua-5.4.7/src/lmathlib.c",
+  "file": "/home/mikel/projects/sdl3-test/vendored/lua/lua-5.4.7/src/lmathlib.c",
+  "output": "vendored/lua/lua-5.4.7/CMakeFiles/lua_static.dir/src/lmathlib.c.o"
+},
+{
+  "directory": "/home/mikel/projects/sdl3-test/vendored/lua/lua-5.4.7",
+  "command": "/usr/bin/cc -DLUA_USE_POSIX -I/home/mikel/projects/sdl3-test/vendored/lua/lua-5.4.7/include -std=gnu2x -fPIC -Wall -Wextra -o CMakeFiles/lua_static.dir/src/loadlib.c.o -c /home/mikel/projects/sdl3-test/vendored/lua/lua-5.4.7/src/loadlib.c",
+  "file": "/home/mikel/projects/sdl3-test/vendored/lua/lua-5.4.7/src/loadlib.c",
+  "output": "vendored/lua/lua-5.4.7/CMakeFiles/lua_static.dir/src/loadlib.c.o"
+},
+{
+  "directory": "/home/mikel/projects/sdl3-test/vendored/lua/lua-5.4.7",
+  "command": "/usr/bin/cc -DLUA_USE_POSIX -I/home/mikel/projects/sdl3-test/vendored/lua/lua-5.4.7/include -std=gnu2x -fPIC -Wall -Wextra -o CMakeFiles/lua_static.dir/src/loslib.c.o -c /home/mikel/projects/sdl3-test/vendored/lua/lua-5.4.7/src/loslib.c",
+  "file": "/home/mikel/projects/sdl3-test/vendored/lua/lua-5.4.7/src/loslib.c",
+  "output": "vendored/lua/lua-5.4.7/CMakeFiles/lua_static.dir/src/loslib.c.o"
+},
+{
+  "directory": "/home/mikel/projects/sdl3-test/vendored/lua/lua-5.4.7",
+  "command": "/usr/bin/cc -DLUA_USE_POSIX -I/home/mikel/projects/sdl3-test/vendored/lua/lua-5.4.7/include -std=gnu2x -fPIC -Wall -Wextra -o CMakeFiles/lua_static.dir/src/lstrlib.c.o -c /home/mikel/projects/sdl3-test/vendored/lua/lua-5.4.7/src/lstrlib.c",
+  "file": "/home/mikel/projects/sdl3-test/vendored/lua/lua-5.4.7/src/lstrlib.c",
+  "output": "vendored/lua/lua-5.4.7/CMakeFiles/lua_static.dir/src/lstrlib.c.o"
+},
+{
+  "directory": "/home/mikel/projects/sdl3-test/vendored/lua/lua-5.4.7",
+  "command": "/usr/bin/cc -DLUA_USE_POSIX -I/home/mikel/projects/sdl3-test/vendored/lua/lua-5.4.7/include -std=gnu2x -fPIC -Wall -Wextra -o CMakeFiles/lua_static.dir/src/ltablib.c.o -c /home/mikel/projects/sdl3-test/vendored/lua/lua-5.4.7/src/ltablib.c",
+  "file": "/home/mikel/projects/sdl3-test/vendored/lua/lua-5.4.7/src/ltablib.c",
+  "output": "vendored/lua/lua-5.4.7/CMakeFiles/lua_static.dir/src/ltablib.c.o"
+},
+{
+  "directory": "/home/mikel/projects/sdl3-test/vendored/lua/lua-5.4.7",
+  "command": "/usr/bin/cc -DLUA_USE_POSIX -I/home/mikel/projects/sdl3-test/vendored/lua/lua-5.4.7/include -std=gnu2x -fPIC -Wall -Wextra -o CMakeFiles/lua_static.dir/src/lutf8lib.c.o -c /home/mikel/projects/sdl3-test/vendored/lua/lua-5.4.7/src/lutf8lib.c",
+  "file": "/home/mikel/projects/sdl3-test/vendored/lua/lua-5.4.7/src/lutf8lib.c",
+  "output": "vendored/lua/lua-5.4.7/CMakeFiles/lua_static.dir/src/lutf8lib.c.o"
+},
+{
+  "directory": "/home/mikel/projects/sdl3-test/vendored/lua/lua-5.4.7",
+  "command": "/usr/bin/cc -DLUA_USE_POSIX -I/home/mikel/projects/sdl3-test/vendored/lua/lua-5.4.7/include -std=gnu2x -fPIC -Wall -Wextra -o CMakeFiles/lua_static.dir/src/linit.c.o -c /home/mikel/projects/sdl3-test/vendored/lua/lua-5.4.7/src/linit.c",
+  "file": "/home/mikel/projects/sdl3-test/vendored/lua/lua-5.4.7/src/linit.c",
+  "output": "vendored/lua/lua-5.4.7/CMakeFiles/lua_static.dir/src/linit.c.o"
+},
+{
+  "directory": "/home/mikel/projects/sdl3-test/vendored/lua/lua-5.4.7",
+  "command": "/usr/bin/cc -DLUA_USE_POSIX -Dlua_shared_EXPORTS -I/home/mikel/projects/sdl3-test/vendored/lua/lua-5.4.7/include -std=gnu2x -fPIC -Wall -Wextra -o CMakeFiles/lua_shared.dir/src/lapi.c.o -c /home/mikel/projects/sdl3-test/vendored/lua/lua-5.4.7/src/lapi.c",
+  "file": "/home/mikel/projects/sdl3-test/vendored/lua/lua-5.4.7/src/lapi.c",
+  "output": "vendored/lua/lua-5.4.7/CMakeFiles/lua_shared.dir/src/lapi.c.o"
+},
+{
+  "directory": "/home/mikel/projects/sdl3-test/vendored/lua/lua-5.4.7",
+  "command": "/usr/bin/cc -DLUA_USE_POSIX -Dlua_shared_EXPORTS -I/home/mikel/projects/sdl3-test/vendored/lua/lua-5.4.7/include -std=gnu2x -fPIC -Wall -Wextra -o CMakeFiles/lua_shared.dir/src/lcode.c.o -c /home/mikel/projects/sdl3-test/vendored/lua/lua-5.4.7/src/lcode.c",
+  "file": "/home/mikel/projects/sdl3-test/vendored/lua/lua-5.4.7/src/lcode.c",
+  "output": "vendored/lua/lua-5.4.7/CMakeFiles/lua_shared.dir/src/lcode.c.o"
+},
+{
+  "directory": "/home/mikel/projects/sdl3-test/vendored/lua/lua-5.4.7",
+  "command": "/usr/bin/cc -DLUA_USE_POSIX -Dlua_shared_EXPORTS -I/home/mikel/projects/sdl3-test/vendored/lua/lua-5.4.7/include -std=gnu2x -fPIC -Wall -Wextra -o CMakeFiles/lua_shared.dir/src/lctype.c.o -c /home/mikel/projects/sdl3-test/vendored/lua/lua-5.4.7/src/lctype.c",
+  "file": "/home/mikel/projects/sdl3-test/vendored/lua/lua-5.4.7/src/lctype.c",
+  "output": "vendored/lua/lua-5.4.7/CMakeFiles/lua_shared.dir/src/lctype.c.o"
+},
+{
+  "directory": "/home/mikel/projects/sdl3-test/vendored/lua/lua-5.4.7",
+  "command": "/usr/bin/cc -DLUA_USE_POSIX -Dlua_shared_EXPORTS -I/home/mikel/projects/sdl3-test/vendored/lua/lua-5.4.7/include -std=gnu2x -fPIC -Wall -Wextra -o CMakeFiles/lua_shared.dir/src/ldebug.c.o -c /home/mikel/projects/sdl3-test/vendored/lua/lua-5.4.7/src/ldebug.c",
+  "file": "/home/mikel/projects/sdl3-test/vendored/lua/lua-5.4.7/src/ldebug.c",
+  "output": "vendored/lua/lua-5.4.7/CMakeFiles/lua_shared.dir/src/ldebug.c.o"
+},
+{
+  "directory": "/home/mikel/projects/sdl3-test/vendored/lua/lua-5.4.7",
+  "command": "/usr/bin/cc -DLUA_USE_POSIX -Dlua_shared_EXPORTS -I/home/mikel/projects/sdl3-test/vendored/lua/lua-5.4.7/include -std=gnu2x -fPIC -Wall -Wextra -o CMakeFiles/lua_shared.dir/src/ldo.c.o -c /home/mikel/projects/sdl3-test/vendored/lua/lua-5.4.7/src/ldo.c",
+  "file": "/home/mikel/projects/sdl3-test/vendored/lua/lua-5.4.7/src/ldo.c",
+  "output": "vendored/lua/lua-5.4.7/CMakeFiles/lua_shared.dir/src/ldo.c.o"
+},
+{
+  "directory": "/home/mikel/projects/sdl3-test/vendored/lua/lua-5.4.7",
+  "command": "/usr/bin/cc -DLUA_USE_POSIX -Dlua_shared_EXPORTS -I/home/mikel/projects/sdl3-test/vendored/lua/lua-5.4.7/include -std=gnu2x -fPIC -Wall -Wextra -o CMakeFiles/lua_shared.dir/src/ldump.c.o -c /home/mikel/projects/sdl3-test/vendored/lua/lua-5.4.7/src/ldump.c",
+  "file": "/home/mikel/projects/sdl3-test/vendored/lua/lua-5.4.7/src/ldump.c",
+  "output": "vendored/lua/lua-5.4.7/CMakeFiles/lua_shared.dir/src/ldump.c.o"
+},
+{
+  "directory": "/home/mikel/projects/sdl3-test/vendored/lua/lua-5.4.7",
+  "command": "/usr/bin/cc -DLUA_USE_POSIX -Dlua_shared_EXPORTS -I/home/mikel/projects/sdl3-test/vendored/lua/lua-5.4.7/include -std=gnu2x -fPIC -Wall -Wextra -o CMakeFiles/lua_shared.dir/src/lfunc.c.o -c /home/mikel/projects/sdl3-test/vendored/lua/lua-5.4.7/src/lfunc.c",
+  "file": "/home/mikel/projects/sdl3-test/vendored/lua/lua-5.4.7/src/lfunc.c",
+  "output": "vendored/lua/lua-5.4.7/CMakeFiles/lua_shared.dir/src/lfunc.c.o"
+},
+{
+  "directory": "/home/mikel/projects/sdl3-test/vendored/lua/lua-5.4.7",
+  "command": "/usr/bin/cc -DLUA_USE_POSIX -Dlua_shared_EXPORTS -I/home/mikel/projects/sdl3-test/vendored/lua/lua-5.4.7/include -std=gnu2x -fPIC -Wall -Wextra -o CMakeFiles/lua_shared.dir/src/lgc.c.o -c /home/mikel/projects/sdl3-test/vendored/lua/lua-5.4.7/src/lgc.c",
+  "file": "/home/mikel/projects/sdl3-test/vendored/lua/lua-5.4.7/src/lgc.c",
+  "output": "vendored/lua/lua-5.4.7/CMakeFiles/lua_shared.dir/src/lgc.c.o"
+},
+{
+  "directory": "/home/mikel/projects/sdl3-test/vendored/lua/lua-5.4.7",
+  "command": "/usr/bin/cc -DLUA_USE_POSIX -Dlua_shared_EXPORTS -I/home/mikel/projects/sdl3-test/vendored/lua/lua-5.4.7/include -std=gnu2x -fPIC -Wall -Wextra -o CMakeFiles/lua_shared.dir/src/llex.c.o -c /home/mikel/projects/sdl3-test/vendored/lua/lua-5.4.7/src/llex.c",
+  "file": "/home/mikel/projects/sdl3-test/vendored/lua/lua-5.4.7/src/llex.c",
+  "output": "vendored/lua/lua-5.4.7/CMakeFiles/lua_shared.dir/src/llex.c.o"
+},
+{
+  "directory": "/home/mikel/projects/sdl3-test/vendored/lua/lua-5.4.7",
+  "command": "/usr/bin/cc -DLUA_USE_POSIX -Dlua_shared_EXPORTS -I/home/mikel/projects/sdl3-test/vendored/lua/lua-5.4.7/include -std=gnu2x -fPIC -Wall -Wextra -o CMakeFiles/lua_shared.dir/src/lmem.c.o -c /home/mikel/projects/sdl3-test/vendored/lua/lua-5.4.7/src/lmem.c",
+  "file": "/home/mikel/projects/sdl3-test/vendored/lua/lua-5.4.7/src/lmem.c",
+  "output": "vendored/lua/lua-5.4.7/CMakeFiles/lua_shared.dir/src/lmem.c.o"
+},
+{
+  "directory": "/home/mikel/projects/sdl3-test/vendored/lua/lua-5.4.7",
+  "command": "/usr/bin/cc -DLUA_USE_POSIX -Dlua_shared_EXPORTS -I/home/mikel/projects/sdl3-test/vendored/lua/lua-5.4.7/include -std=gnu2x -fPIC -Wall -Wextra -o CMakeFiles/lua_shared.dir/src/lobject.c.o -c /home/mikel/projects/sdl3-test/vendored/lua/lua-5.4.7/src/lobject.c",
+  "file": "/home/mikel/projects/sdl3-test/vendored/lua/lua-5.4.7/src/lobject.c",
+  "output": "vendored/lua/lua-5.4.7/CMakeFiles/lua_shared.dir/src/lobject.c.o"
+},
+{
+  "directory": "/home/mikel/projects/sdl3-test/vendored/lua/lua-5.4.7",
+  "command": "/usr/bin/cc -DLUA_USE_POSIX -Dlua_shared_EXPORTS -I/home/mikel/projects/sdl3-test/vendored/lua/lua-5.4.7/include -std=gnu2x -fPIC -Wall -Wextra -o CMakeFiles/lua_shared.dir/src/lopcodes.c.o -c /home/mikel/projects/sdl3-test/vendored/lua/lua-5.4.7/src/lopcodes.c",
+  "file": "/home/mikel/projects/sdl3-test/vendored/lua/lua-5.4.7/src/lopcodes.c",
+  "output": "vendored/lua/lua-5.4.7/CMakeFiles/lua_shared.dir/src/lopcodes.c.o"
+},
+{
+  "directory": "/home/mikel/projects/sdl3-test/vendored/lua/lua-5.4.7",
+  "command": "/usr/bin/cc -DLUA_USE_POSIX -Dlua_shared_EXPORTS -I/home/mikel/projects/sdl3-test/vendored/lua/lua-5.4.7/include -std=gnu2x -fPIC -Wall -Wextra -o CMakeFiles/lua_shared.dir/src/lparser.c.o -c /home/mikel/projects/sdl3-test/vendored/lua/lua-5.4.7/src/lparser.c",
+  "file": "/home/mikel/projects/sdl3-test/vendored/lua/lua-5.4.7/src/lparser.c",
+  "output": "vendored/lua/lua-5.4.7/CMakeFiles/lua_shared.dir/src/lparser.c.o"
+},
+{
+  "directory": "/home/mikel/projects/sdl3-test/vendored/lua/lua-5.4.7",
+  "command": "/usr/bin/cc -DLUA_USE_POSIX -Dlua_shared_EXPORTS -I/home/mikel/projects/sdl3-test/vendored/lua/lua-5.4.7/include -std=gnu2x -fPIC -Wall -Wextra -o CMakeFiles/lua_shared.dir/src/lstate.c.o -c /home/mikel/projects/sdl3-test/vendored/lua/lua-5.4.7/src/lstate.c",
+  "file": "/home/mikel/projects/sdl3-test/vendored/lua/lua-5.4.7/src/lstate.c",
+  "output": "vendored/lua/lua-5.4.7/CMakeFiles/lua_shared.dir/src/lstate.c.o"
+},
+{
+  "directory": "/home/mikel/projects/sdl3-test/vendored/lua/lua-5.4.7",
+  "command": "/usr/bin/cc -DLUA_USE_POSIX -Dlua_shared_EXPORTS -I/home/mikel/projects/sdl3-test/vendored/lua/lua-5.4.7/include -std=gnu2x -fPIC -Wall -Wextra -o CMakeFiles/lua_shared.dir/src/lstring.c.o -c /home/mikel/projects/sdl3-test/vendored/lua/lua-5.4.7/src/lstring.c",
+  "file": "/home/mikel/projects/sdl3-test/vendored/lua/lua-5.4.7/src/lstring.c",
+  "output": "vendored/lua/lua-5.4.7/CMakeFiles/lua_shared.dir/src/lstring.c.o"
+},
+{
+  "directory": "/home/mikel/projects/sdl3-test/vendored/lua/lua-5.4.7",
+  "command": "/usr/bin/cc -DLUA_USE_POSIX -Dlua_shared_EXPORTS -I/home/mikel/projects/sdl3-test/vendored/lua/lua-5.4.7/include -std=gnu2x -fPIC -Wall -Wextra -o CMakeFiles/lua_shared.dir/src/ltable.c.o -c /home/mikel/projects/sdl3-test/vendored/lua/lua-5.4.7/src/ltable.c",
+  "file": "/home/mikel/projects/sdl3-test/vendored/lua/lua-5.4.7/src/ltable.c",
+  "output": "vendored/lua/lua-5.4.7/CMakeFiles/lua_shared.dir/src/ltable.c.o"
+},
+{
+  "directory": "/home/mikel/projects/sdl3-test/vendored/lua/lua-5.4.7",
+  "command": "/usr/bin/cc -DLUA_USE_POSIX -Dlua_shared_EXPORTS -I/home/mikel/projects/sdl3-test/vendored/lua/lua-5.4.7/include -std=gnu2x -fPIC -Wall -Wextra -o CMakeFiles/lua_shared.dir/src/ltm.c.o -c /home/mikel/projects/sdl3-test/vendored/lua/lua-5.4.7/src/ltm.c",
+  "file": "/home/mikel/projects/sdl3-test/vendored/lua/lua-5.4.7/src/ltm.c",
+  "output": "vendored/lua/lua-5.4.7/CMakeFiles/lua_shared.dir/src/ltm.c.o"
+},
+{
+  "directory": "/home/mikel/projects/sdl3-test/vendored/lua/lua-5.4.7",
+  "command": "/usr/bin/cc -DLUA_USE_POSIX -Dlua_shared_EXPORTS -I/home/mikel/projects/sdl3-test/vendored/lua/lua-5.4.7/include -std=gnu2x -fPIC -Wall -Wextra -o CMakeFiles/lua_shared.dir/src/lundump.c.o -c /home/mikel/projects/sdl3-test/vendored/lua/lua-5.4.7/src/lundump.c",
+  "file": "/home/mikel/projects/sdl3-test/vendored/lua/lua-5.4.7/src/lundump.c",
+  "output": "vendored/lua/lua-5.4.7/CMakeFiles/lua_shared.dir/src/lundump.c.o"
+},
+{
+  "directory": "/home/mikel/projects/sdl3-test/vendored/lua/lua-5.4.7",
+  "command": "/usr/bin/cc -DLUA_USE_POSIX -Dlua_shared_EXPORTS -I/home/mikel/projects/sdl3-test/vendored/lua/lua-5.4.7/include -std=gnu2x -fPIC -Wall -Wextra -o CMakeFiles/lua_shared.dir/src/lvm.c.o -c /home/mikel/projects/sdl3-test/vendored/lua/lua-5.4.7/src/lvm.c",
+  "file": "/home/mikel/projects/sdl3-test/vendored/lua/lua-5.4.7/src/lvm.c",
+  "output": "vendored/lua/lua-5.4.7/CMakeFiles/lua_shared.dir/src/lvm.c.o"
+},
+{
+  "directory": "/home/mikel/projects/sdl3-test/vendored/lua/lua-5.4.7",
+  "command": "/usr/bin/cc -DLUA_USE_POSIX -Dlua_shared_EXPORTS -I/home/mikel/projects/sdl3-test/vendored/lua/lua-5.4.7/include -std=gnu2x -fPIC -Wall -Wextra -o CMakeFiles/lua_shared.dir/src/lzio.c.o -c /home/mikel/projects/sdl3-test/vendored/lua/lua-5.4.7/src/lzio.c",
+  "file": "/home/mikel/projects/sdl3-test/vendored/lua/lua-5.4.7/src/lzio.c",
+  "output": "vendored/lua/lua-5.4.7/CMakeFiles/lua_shared.dir/src/lzio.c.o"
+},
+{
+  "directory": "/home/mikel/projects/sdl3-test/vendored/lua/lua-5.4.7",
+  "command": "/usr/bin/cc -DLUA_USE_POSIX -Dlua_shared_EXPORTS -I/home/mikel/projects/sdl3-test/vendored/lua/lua-5.4.7/include -std=gnu2x -fPIC -Wall -Wextra -o CMakeFiles/lua_shared.dir/src/lauxlib.c.o -c /home/mikel/projects/sdl3-test/vendored/lua/lua-5.4.7/src/lauxlib.c",
+  "file": "/home/mikel/projects/sdl3-test/vendored/lua/lua-5.4.7/src/lauxlib.c",
+  "output": "vendored/lua/lua-5.4.7/CMakeFiles/lua_shared.dir/src/lauxlib.c.o"
+},
+{
+  "directory": "/home/mikel/projects/sdl3-test/vendored/lua/lua-5.4.7",
+  "command": "/usr/bin/cc -DLUA_USE_POSIX -Dlua_shared_EXPORTS -I/home/mikel/projects/sdl3-test/vendored/lua/lua-5.4.7/include -std=gnu2x -fPIC -Wall -Wextra -o CMakeFiles/lua_shared.dir/src/lbaselib.c.o -c /home/mikel/projects/sdl3-test/vendored/lua/lua-5.4.7/src/lbaselib.c",
+  "file": "/home/mikel/projects/sdl3-test/vendored/lua/lua-5.4.7/src/lbaselib.c",
+  "output": "vendored/lua/lua-5.4.7/CMakeFiles/lua_shared.dir/src/lbaselib.c.o"
+},
+{
+  "directory": "/home/mikel/projects/sdl3-test/vendored/lua/lua-5.4.7",
+  "command": "/usr/bin/cc -DLUA_USE_POSIX -Dlua_shared_EXPORTS -I/home/mikel/projects/sdl3-test/vendored/lua/lua-5.4.7/include -std=gnu2x -fPIC -Wall -Wextra -o CMakeFiles/lua_shared.dir/src/lcorolib.c.o -c /home/mikel/projects/sdl3-test/vendored/lua/lua-5.4.7/src/lcorolib.c",
+  "file": "/home/mikel/projects/sdl3-test/vendored/lua/lua-5.4.7/src/lcorolib.c",
+  "output": "vendored/lua/lua-5.4.7/CMakeFiles/lua_shared.dir/src/lcorolib.c.o"
+},
+{
+  "directory": "/home/mikel/projects/sdl3-test/vendored/lua/lua-5.4.7",
+  "command": "/usr/bin/cc -DLUA_USE_POSIX -Dlua_shared_EXPORTS -I/home/mikel/projects/sdl3-test/vendored/lua/lua-5.4.7/include -std=gnu2x -fPIC -Wall -Wextra -o CMakeFiles/lua_shared.dir/src/ldblib.c.o -c /home/mikel/projects/sdl3-test/vendored/lua/lua-5.4.7/src/ldblib.c",
+  "file": "/home/mikel/projects/sdl3-test/vendored/lua/lua-5.4.7/src/ldblib.c",
+  "output": "vendored/lua/lua-5.4.7/CMakeFiles/lua_shared.dir/src/ldblib.c.o"
+},
+{
+  "directory": "/home/mikel/projects/sdl3-test/vendored/lua/lua-5.4.7",
+  "command": "/usr/bin/cc -DLUA_USE_POSIX -Dlua_shared_EXPORTS -I/home/mikel/projects/sdl3-test/vendored/lua/lua-5.4.7/include -std=gnu2x -fPIC -Wall -Wextra -o CMakeFiles/lua_shared.dir/src/liolib.c.o -c /home/mikel/projects/sdl3-test/vendored/lua/lua-5.4.7/src/liolib.c",
+  "file": "/home/mikel/projects/sdl3-test/vendored/lua/lua-5.4.7/src/liolib.c",
+  "output": "vendored/lua/lua-5.4.7/CMakeFiles/lua_shared.dir/src/liolib.c.o"
+},
+{
+  "directory": "/home/mikel/projects/sdl3-test/vendored/lua/lua-5.4.7",
+  "command": "/usr/bin/cc -DLUA_USE_POSIX -Dlua_shared_EXPORTS -I/home/mikel/projects/sdl3-test/vendored/lua/lua-5.4.7/include -std=gnu2x -fPIC -Wall -Wextra -o CMakeFiles/lua_shared.dir/src/lmathlib.c.o -c /home/mikel/projects/sdl3-test/vendored/lua/lua-5.4.7/src/lmathlib.c",
+  "file": "/home/mikel/projects/sdl3-test/vendored/lua/lua-5.4.7/src/lmathlib.c",
+  "output": "vendored/lua/lua-5.4.7/CMakeFiles/lua_shared.dir/src/lmathlib.c.o"
+},
+{
+  "directory": "/home/mikel/projects/sdl3-test/vendored/lua/lua-5.4.7",
+  "command": "/usr/bin/cc -DLUA_USE_POSIX -Dlua_shared_EXPORTS -I/home/mikel/projects/sdl3-test/vendored/lua/lua-5.4.7/include -std=gnu2x -fPIC -Wall -Wextra -o CMakeFiles/lua_shared.dir/src/loadlib.c.o -c /home/mikel/projects/sdl3-test/vendored/lua/lua-5.4.7/src/loadlib.c",
+  "file": "/home/mikel/projects/sdl3-test/vendored/lua/lua-5.4.7/src/loadlib.c",
+  "output": "vendored/lua/lua-5.4.7/CMakeFiles/lua_shared.dir/src/loadlib.c.o"
+},
+{
+  "directory": "/home/mikel/projects/sdl3-test/vendored/lua/lua-5.4.7",
+  "command": "/usr/bin/cc -DLUA_USE_POSIX -Dlua_shared_EXPORTS -I/home/mikel/projects/sdl3-test/vendored/lua/lua-5.4.7/include -std=gnu2x -fPIC -Wall -Wextra -o CMakeFiles/lua_shared.dir/src/loslib.c.o -c /home/mikel/projects/sdl3-test/vendored/lua/lua-5.4.7/src/loslib.c",
+  "file": "/home/mikel/projects/sdl3-test/vendored/lua/lua-5.4.7/src/loslib.c",
+  "output": "vendored/lua/lua-5.4.7/CMakeFiles/lua_shared.dir/src/loslib.c.o"
+},
+{
+  "directory": "/home/mikel/projects/sdl3-test/vendored/lua/lua-5.4.7",
+  "command": "/usr/bin/cc -DLUA_USE_POSIX -Dlua_shared_EXPORTS -I/home/mikel/projects/sdl3-test/vendored/lua/lua-5.4.7/include -std=gnu2x -fPIC -Wall -Wextra -o CMakeFiles/lua_shared.dir/src/lstrlib.c.o -c /home/mikel/projects/sdl3-test/vendored/lua/lua-5.4.7/src/lstrlib.c",
+  "file": "/home/mikel/projects/sdl3-test/vendored/lua/lua-5.4.7/src/lstrlib.c",
+  "output": "vendored/lua/lua-5.4.7/CMakeFiles/lua_shared.dir/src/lstrlib.c.o"
+},
+{
+  "directory": "/home/mikel/projects/sdl3-test/vendored/lua/lua-5.4.7",
+  "command": "/usr/bin/cc -DLUA_USE_POSIX -Dlua_shared_EXPORTS -I/home/mikel/projects/sdl3-test/vendored/lua/lua-5.4.7/include -std=gnu2x -fPIC -Wall -Wextra -o CMakeFiles/lua_shared.dir/src/ltablib.c.o -c /home/mikel/projects/sdl3-test/vendored/lua/lua-5.4.7/src/ltablib.c",
+  "file": "/home/mikel/projects/sdl3-test/vendored/lua/lua-5.4.7/src/ltablib.c",
+  "output": "vendored/lua/lua-5.4.7/CMakeFiles/lua_shared.dir/src/ltablib.c.o"
+},
+{
+  "directory": "/home/mikel/projects/sdl3-test/vendored/lua/lua-5.4.7",
+  "command": "/usr/bin/cc -DLUA_USE_POSIX -Dlua_shared_EXPORTS -I/home/mikel/projects/sdl3-test/vendored/lua/lua-5.4.7/include -std=gnu2x -fPIC -Wall -Wextra -o CMakeFiles/lua_shared.dir/src/lutf8lib.c.o -c /home/mikel/projects/sdl3-test/vendored/lua/lua-5.4.7/src/lutf8lib.c",
+  "file": "/home/mikel/projects/sdl3-test/vendored/lua/lua-5.4.7/src/lutf8lib.c",
+  "output": "vendored/lua/lua-5.4.7/CMakeFiles/lua_shared.dir/src/lutf8lib.c.o"
+},
+{
+  "directory": "/home/mikel/projects/sdl3-test/vendored/lua/lua-5.4.7",
+  "command": "/usr/bin/cc -DLUA_USE_POSIX -Dlua_shared_EXPORTS -I/home/mikel/projects/sdl3-test/vendored/lua/lua-5.4.7/include -std=gnu2x -fPIC -Wall -Wextra -o CMakeFiles/lua_shared.dir/src/linit.c.o -c /home/mikel/projects/sdl3-test/vendored/lua/lua-5.4.7/src/linit.c",
+  "file": "/home/mikel/projects/sdl3-test/vendored/lua/lua-5.4.7/src/linit.c",
+  "output": "vendored/lua/lua-5.4.7/CMakeFiles/lua_shared.dir/src/linit.c.o"
+},
+{
+  "directory": "/home/mikel/projects/sdl3-test/vendored/lua/lua-5.4.7",
+  "command": "/usr/bin/cc  -I/home/mikel/projects/sdl3-test/vendored/lua/lua-5.4.7/include -std=gnu2x -fPIE -o CMakeFiles/luac.dir/src/luac.c.o -c /home/mikel/projects/sdl3-test/vendored/lua/lua-5.4.7/src/luac.c",
+  "file": "/home/mikel/projects/sdl3-test/vendored/lua/lua-5.4.7/src/luac.c",
+  "output": "vendored/lua/lua-5.4.7/CMakeFiles/luac.dir/src/luac.c.o"
 }
 ]
