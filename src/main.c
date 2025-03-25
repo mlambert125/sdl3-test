@@ -55,7 +55,7 @@ int main() {
     lua_pushcfunction(L, drawString);
     lua_setglobal(L, "drawString");
 
-    if (luaL_dostring(L, "for i=0,8 do drawString(tostring(i) .. ' ^ 2 =' .. tostring(i * i), 10, i*50) end") != LUA_OK) {
+    if (luaL_dostring(L, "for i=0,8 do drawString(tostring(i) .. ' squared =' .. tostring(i * i), 10, i*50) end") != LUA_OK) {
         fprintf(stderr, "Error: %s\n", lua_tostring(L, -1));
         lua_pop(L, 1);
     }
