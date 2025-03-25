@@ -5,6 +5,7 @@
 #include <lualib.h>
 #include "../include/scene.h"
 #include "../include/scene-title.h"
+#include "../include/game-state.h"
 
 SDL_Window *window = nullptr;
 SDL_Renderer *renderer = nullptr;
@@ -20,8 +21,7 @@ int main() {
     window = SDL_CreateWindow("SDL3 Window", 640, 480, 0);
     renderer = SDL_CreateRenderer(window, nullptr);
 
-    GlobalGameState gameState = {0};
-    gameState.fontDejaVuSans = TTF_OpenFont("resources/DejaVuSans.ttf", 24);
+    GlobalGameState gameState = globalGameState_create(); 
 
     Scene currentScene = scene_title_create();
     currentScene.init(&currentScene, &gameState, renderer);
@@ -41,7 +41,7 @@ int main() {
     }
 
     currentScene.destroy(&currentScene, &gameState, renderer);
-    TTF_CloseFont(gameState.fontDejaVuSans);
+    globalGameState_free(gameState);
     SDL_DestroyRenderer(renderer);
     SDL_DestroyWindow(window);
     SDL_Quit();

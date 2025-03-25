@@ -6,7 +6,7 @@
 
 typedef struct GlobalGameState {
     TTF_Font *fontDejaVuSans;
-
-    int score;
-    int lives;
 } GlobalGameState;
+
+GlobalGameState globalGameState_create();
+void globalGameState_free(GlobalGameState globalGameState);

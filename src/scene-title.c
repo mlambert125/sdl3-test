@@ -26,6 +26,9 @@ SceneUpdateResult scene_title_update(Scene *self, GlobalGameState *globalGameSta
         return (SceneUpdateResult){.nextScene = nullptr, .shouldQuit = true};
     } else if (event.type == SDL_EVENT_KEY_DOWN) {
         switch (event.key.key) {
+            case SDLK_ESCAPE:
+            case SDLK_Q:
+                return (SceneUpdateResult){.nextScene = nullptr, .shouldQuit = true};
             case SDLK_SPACE:
                 return (SceneUpdateResult){.nextScene = scene_game_create, .shouldQuit = false};
             default:

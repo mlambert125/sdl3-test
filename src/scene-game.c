@@ -20,7 +20,8 @@ int drawString(lua_State *L) {
     lua_getglobal(L, "sceneState");
     SceneGameData *data = lua_touserdata(L, -1);
 
-    SDL_Surface *surface = TTF_RenderText_Blended(globalGameState->fontDejaVuSans, text, strlen(text), (SDL_Color){255, 255, 255, 255});
+    SDL_Surface *surface =
+        TTF_RenderText_Blended(globalGameState->fontDejaVuSans, text, strlen(text), (SDL_Color){255, 255, 255, 255});
     SDL_Texture *texture = SDL_CreateTextureFromSurface(renderer, surface);
     SDL_DestroySurface(surface);
 
@@ -71,6 +72,9 @@ SceneUpdateResult scene_game_update(Scene *self, GlobalGameState *globalGameStat
         return (SceneUpdateResult){.nextScene = nullptr, .shouldQuit = true};
     } else if (event.type == SDL_EVENT_KEY_DOWN) {
         switch (event.key.key) {
+        case SDLK_ESCAPE:
+        case SDLK_Q:
+            return (SceneUpdateResult){.nextScene = nullptr, .shouldQuit = true};
         case SDLK_SPACE:
             return (SceneUpdateResult){.nextScene = scene_title_create, .shouldQuit = false};
         default:
