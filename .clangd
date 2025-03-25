@@ -1,0 +1,12 @@
+CompileFlags:
+  Add:
+    - "-std=c23"
+    - "-Wall"
+    - "-Wextra"
+    - "-Werror"
+    - "-xc"
+  Compiler: gcc
+
+Diagnostics:
+  Suppress: [unused-parameter]
+
