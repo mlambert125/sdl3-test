@@ -8,6 +8,11 @@
 #include "../include/scene-game.h"
 #include "../include/scene-title.h"
 
+char *testScript = "drawString('Lua Calculating Squares:')\n"
+                   "for i = 1, 10 do\n"
+                   "    drawString(i .. ' ^ 2 = ' .. (i * i))\n"
+                   "end\n";
+
 int drawString(lua_State *L) {
     const char *text = luaL_checkstring(L, 1);
 
@@ -58,10 +63,7 @@ void scene_game_init(Scene *self, GlobalGameState *globalGameState, SDL_Renderer
     lua_pushlightuserdata(data->L, self->data);
     lua_setglobal(data->L, "sceneState");
 
-    luaL_dostring(data->L, "print('Hello from Lua!')"
-                           "for i = 1, 10 do"
-                           "    drawString('Hello from Lua! ' .. i)"
-                           "end");
+    luaL_dostring(data->L, testScript);
 }
 
 SceneUpdateResult scene_game_update(Scene *self, GlobalGameState *globalGameState, SDL_Renderer *renderer) {
@@ -94,7 +96,6 @@ void scene_game_draw(Scene *self, GlobalGameState *globalGameState, SDL_Renderer
     for (int i = 0; i < data->textTextureCount; i++) {
         SDL_Texture *texture = data->textTextures[i];
 
-        // Get size of texture
         float w, h;
         SDL_GetTextureSize(texture, &w, &h);
         SDL_RenderTexture(renderer, texture, nullptr, &(SDL_FRect){10.0f, 10.0f + (float)i * 30.0f, w, h});
