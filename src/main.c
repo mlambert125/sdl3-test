@@ -5,24 +5,49 @@
 #include <lauxlib.h>
 #include <lualib.h>
 
-char *message = "Hello, SDL3!";
+constexpr int MAX_TEXTURES = 100;
 
-int setMessage(lua_State *L) {
-    const char *newMessage = luaL_checkstring(L, 1);
-    message = (char *)newMessage;
+SDL_Window *window = nullptr;
+SDL_Renderer *renderer = nullptr;
+SDL_Texture *textures[MAX_TEXTURES];
+int textureCount = 0;
+
+int drawString(lua_State *L) {
+    TTF_Font *font = nullptr;
+    font = TTF_OpenFont("resources/DejaVuSans.ttf", 36);
+
+    if (textureCount >= MAX_TEXTURES) {
+        fprintf(stderr, "Texture limit reached\n");
+        return 0;
+    }
+    const char *text = luaL_checkstring(L, 1);
+    const int x = luaL_checkinteger(L, 2);
+    const int y = luaL_checkinteger(L, 3);
+
+    printf("Drawing text: %s at (%d, %d)\n", text, x, y);
+
+    SDL_Surface *surfaceText = TTF_RenderText_Blended(font, text, strlen(text), (SDL_Color){255, 255, 255, 255});
+    SDL_Texture *textureText = SDL_CreateTextureFromSurface(renderer, surfaceText);
+    textures[textureCount++] = textureText;
+    SDL_DestroySurface(surfaceText);
+
+    int textWidth, textHeight;
+
+    TTF_GetStringSize(font, text, strlen(text), &textWidth, &textHeight);
+    SDL_RenderTexture(renderer, textureText, nullptr, &(SDL_FRect){x, y, textWidth, textHeight});
+
+    TTF_CloseFont(font);
     return 0;
 }
 
 int main() {
-    SDL_Window *window = nullptr;
-    SDL_Renderer *renderer = nullptr;
-    TTF_Font *font = nullptr;
+    window = nullptr;
+    renderer = nullptr;
     lua_State *L = luaL_newstate();
 
     SDL_Init(SDL_INIT_VIDEO);
     TTF_Init();
 
-    font = TTF_OpenFont("resources/DejaVuSans.ttf", 36);
     window = SDL_CreateWindow("SDL3 Window", 640, 480, 0);
     renderer = SDL_CreateRenderer(window, nullptr);
 
@@ -30,24 +55,14 @@ int main() {
     SDL_RenderClear(renderer);
 
     luaL_openlibs(L);
-    lua_pushcfunction(L, setMessage);
-    lua_setglobal(L, "setMessage");
+    lua_pushcfunction(L, drawString);
+    lua_setglobal(L, "drawString");
 
-    if (luaL_dostring(L, "setMessage('Hello from a lua script!')") != LUA_OK) {
+    if (luaL_dostring(L, "for i=0,8 do drawString(tostring(i) .. ' ^ 2 =' .. tostring(i * i), 10, i*50) end") != LUA_OK) {
         fprintf(stderr, "Error: %s\n", lua_tostring(L, -1));
         lua_pop(L, 1);
     }
 
-    SDL_Surface *surfaceText = TTF_RenderText_Blended(font, message, strlen(message), (SDL_Color){255, 255, 255, 255});
-    SDL_Texture *textureText = SDL_CreateTextureFromSurface(renderer, surfaceText);
-    SDL_DestroySurface(surfaceText);
-
-    int w, h;
-    TTF_GetStringSize(font, message, strlen(message), &w, &h);
-
-    printf("Text width: %d, height: %d\n", w, h);
-
-    SDL_RenderTexture(renderer, textureText, nullptr, &(SDL_FRect){10, 100, w, h});
     SDL_RenderPresent(renderer);
 
     while (1) {
@@ -61,7 +76,9 @@ int main() {
     }
 
 cleanup:
-    TTF_CloseFont(font);
+    for (int i = 0; i < textureCount; i++) {
+        SDL_DestroyTexture(textures[i]);
+    }
     SDL_DestroyRenderer(renderer);
     SDL_DestroyWindow(window);
     SDL_Quit();
