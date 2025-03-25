@@ -76,7 +76,9 @@ cleanup:
     for (int i = 0; i < textureCount; i++) {
         SDL_DestroyTexture(textTextures[i]);
     }
-    free(textTextures);
+    if (textTextures) {
+        free(textTextures);
+    }
     SDL_DestroyRenderer(renderer);
     SDL_DestroyWindow(window);
     SDL_Quit();
