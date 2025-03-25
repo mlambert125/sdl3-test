@@ -26,13 +26,13 @@ SceneUpdateResult scene_title_update(Scene *self, GlobalGameState *globalGameSta
         return (SceneUpdateResult){.nextScene = nullptr, .shouldQuit = true};
     } else if (event.type == SDL_EVENT_KEY_DOWN) {
         switch (event.key.key) {
-            case SDLK_ESCAPE:
-            case SDLK_Q:
-                return (SceneUpdateResult){.nextScene = nullptr, .shouldQuit = true};
-            case SDLK_SPACE:
-                return (SceneUpdateResult){.nextScene = scene_game_create, .shouldQuit = false};
-            default:
-                return (SceneUpdateResult){.nextScene = nullptr, .shouldQuit = false};
+        case SDLK_ESCAPE:
+        case SDLK_Q:
+            return (SceneUpdateResult){.nextScene = nullptr, .shouldQuit = true};
+        case SDLK_SPACE:
+            return (SceneUpdateResult){.nextScene = scene_game_create, .shouldQuit = false};
+        default:
+            return (SceneUpdateResult){.nextScene = nullptr, .shouldQuit = false};
         }
     } else {
         return (SceneUpdateResult){.nextScene = nullptr, .shouldQuit = false};
@@ -48,7 +48,8 @@ void scene_title_draw(Scene *self, GlobalGameState *globalGameState, SDL_Rendere
 
     SDL_SetRenderDrawColor(renderer, 255, 255, 255, 255);
 
-    SDL_Surface *surfaceText = TTF_RenderText_Blended(globalGameState->fontDejaVuSans, text, strlen(text), (SDL_Color){255, 255, 255, 255});
+    SDL_Surface *surfaceText =
+        TTF_RenderText_Blended(globalGameState->fontDejaVuSans, text, strlen(text), (SDL_Color){255, 255, 255, 255});
     SDL_Texture *textureText = SDL_CreateTextureFromSurface(renderer, surfaceText);
     SDL_DestroySurface(surfaceText);
 

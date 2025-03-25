@@ -21,7 +21,7 @@ int main() {
     window = SDL_CreateWindow("SDL3 Window", 640, 480, 0);
     renderer = SDL_CreateRenderer(window, nullptr);
 
-    GlobalGameState gameState = globalGameState_create(); 
+    GlobalGameState gameState = globalGameState_create();
 
     Scene currentScene = scene_title_create();
     currentScene.init(&currentScene, &gameState, renderer);
