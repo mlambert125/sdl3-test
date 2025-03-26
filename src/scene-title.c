@@ -1,3 +1,4 @@
+#include <stdio.h>
 #include <stdlib.h>
 #include <SDL3/SDL_render.h>
 #include <SDL3_ttf/SDL_ttf.h>
@@ -5,16 +6,17 @@
 #include "../include/scene-map.h"
 
 Scene scene_title_create() {
+    printf("scene_title_create\n");
+    void *data = malloc(sizeof(SceneTitleData));
     return (Scene){.init = scene_title_init,
                    .update = scene_title_update,
                    .draw = scene_title_draw,
                    .destroy = scene_title_destroy,
-                   .data = nullptr};
+                   .data = data};
 }
 
 void scene_title_init(Scene *self, GlobalGameState *globalGameState, SDL_Renderer *renderer) {
-    SceneTitleData *data = (SceneTitleData *)malloc(sizeof(SceneTitleData));
-    self->data = data;
+    printf("scene_title_init\n");
 }
 
 SceneUpdateResult scene_title_update(Scene *self, GlobalGameState *globalGameState, SDL_Renderer *renderer) {
@@ -47,6 +49,7 @@ void scene_title_draw(Scene *self, GlobalGameState *globalGameState, SDL_Rendere
 
     SDL_SetRenderDrawColor(renderer, 255, 255, 255, 255);
 
+
     SDL_Surface *surfaceText =
         TTF_RenderText_Blended(globalGameState->fontDejaVuSans, text, strlen(text), (SDL_Color){255, 255, 255, 255});
     SDL_Texture *textureText = SDL_CreateTextureFromSurface(renderer, surfaceText);
@@ -59,5 +62,6 @@ void scene_title_draw(Scene *self, GlobalGameState *globalGameState, SDL_Rendere
 }
 
 void scene_title_destroy(Scene *self, GlobalGameState *globalGameState, SDL_Renderer *renderer) {
+    printf("scene_title_destroy\n");
     if (self->data != nullptr) free(self->data);
 }

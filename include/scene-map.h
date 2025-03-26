@@ -14,14 +14,19 @@ typedef struct SceneMapData {
     lua_State *L;
 
     /**
-     * The text textures
+     * The map
      */
-    int textTextureCount;
+    int map[500][500];
 
     /**
-     * The text textures
+     * The player x position
      */
-    SDL_Texture **textTextures;
+    int playerX;
+
+    /**
+     * The player y position
+     */
+    int playerY;
 } SceneMapData;
 
 /**

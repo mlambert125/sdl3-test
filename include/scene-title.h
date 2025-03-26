@@ -7,6 +7,7 @@
  * Scene title data
  */
 typedef struct SceneTitleData {
+    int dummy;
 } SceneTitleData;
 
 /**

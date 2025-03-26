@@ -8,51 +8,67 @@
 #include "../include/scene-map.h"
 #include "../include/scene-title.h"
 
-char *testScript = "drawString('Lua Calculating Squares:')\n"
-                   "for i = 1, 10 do\n"
-                   "    drawString(i .. ' ^ 2 = ' .. (i * i))\n"
-                   "end\n";
+int printLuaTable(lua_State *L) {
+    lua_pushnil(L);
+    while (lua_next(L, -2) != 0) {
+        printf("%s - %s\n", lua_tostring(L, -2), lua_tostring(L, -1));
+        lua_pop(L, 1);
+    }
+    return 0;
+}
 
-int drawString(lua_State *L) {
-    const char *text = luaL_checkstring(L, 1);
-
-    lua_getglobal(L, "renderer");
-    SDL_Renderer *renderer = lua_touserdata(L, -1);
-
-    lua_getglobal(L, "globalGameState");
-    GlobalGameState *globalGameState = lua_touserdata(L, -1);
+int setTile(lua_State *L) {
+    int x = luaL_checkinteger(L, 1);
+    int y = luaL_checkinteger(L, 2);
+    int tileCode = luaL_checkinteger(L, 3);
 
     lua_getglobal(L, "sceneState");
     SceneMapData *data = lua_touserdata(L, -1);
 
-    SDL_Surface *surface =
-        TTF_RenderText_Blended(globalGameState->fontDejaVuSans, text, strlen(text), (SDL_Color){255, 255, 255, 255});
-    SDL_Texture *texture = SDL_CreateTextureFromSurface(renderer, surface);
-    SDL_DestroySurface(surface);
+    if (x < 0 || x >= 500 || y < 0 || y >= 500) {
+        printf("Error: setTile out of bounds\n");
+        return 1;
+    }
+    data->map[y][x] = tileCode;
 
-    data->textTextures = realloc(data->textTextures, sizeof(SDL_Texture *) * (data->textTextureCount + 1));
-    data->textTextures[data->textTextureCount++] = texture;
+    return 0;
+}
+
+int setPlayerPosition(lua_State *L) {
+    int x = luaL_checkinteger(L, 1);
+    int y = luaL_checkinteger(L, 2);
+
+    lua_getglobal(L, "sceneState");
+    SceneMapData *data = lua_touserdata(L, -1);
+
+    data->playerX = x;
+    data->playerY = y;
 
     return 0;
 }
 
 Scene scene_map_create() {
+    printf("scene_map_create\n");
+    void *data = malloc(sizeof(SceneMapData));
+
     return (Scene){.init = scene_map_init,
                    .update = scene_map_update,
                    .draw = scene_map_draw,
                    .destroy = scene_map_destroy,
-                   .data = nullptr};
+                   .data = data};
 }
 
 void scene_map_init(Scene *self, GlobalGameState *globalGameState, SDL_Renderer *renderer) {
-    SceneMapData *data = (SceneMapData *)malloc(sizeof(SceneMapData));
+    printf("scene_map_init\n");
+
+    SceneMapData *data = (SceneMapData *)self->data;
+
     data->L = luaL_newstate();
     luaL_openlibs(data->L);
-    self->data = data;
-    data->textTextureCount = 0;
-    data->textTextures = nullptr;
 
-    lua_register(data->L, "drawString", drawString);
+    lua_register(data->L, "setTile", setTile);
+    lua_register(data->L, "setPlayerPosition", setPlayerPosition);
+    lua_register(data->L, "printLuaTable", printLuaTable);
 
     lua_pushlightuserdata(data->L, renderer);
     lua_setglobal(data->L, "renderer");
@@ -63,10 +79,18 @@ void scene_map_init(Scene *self, GlobalGameState *globalGameState, SDL_Renderer 
     lua_pushlightuserdata(data->L, self->data);
     lua_setglobal(data->L, "sceneState");
 
-    luaL_dostring(data->L, testScript);
+    char mapScriptPath[512];
+
+    sprintf(mapScriptPath, "resources/scripts/%s", globalGameState->mapScript);
+
+    if (luaL_dofile(data->L, mapScriptPath) != LUA_OK) {
+        printf("Error: %s\n", lua_tostring(data->L, -1));
+        lua_pop(data->L, 1);
+    }
 }
 
 SceneUpdateResult scene_map_update(Scene *self, GlobalGameState *globalGameState, SDL_Renderer *renderer) {
+    SceneMapData *data = (SceneMapData *)self->data;
     SDL_Event event;
     SDL_PollEvent(&event);
 
@@ -79,6 +103,22 @@ SceneUpdateResult scene_map_update(Scene *self, GlobalGameState *globalGameState
             return (SceneUpdateResult){.nextScene = nullptr, .shouldQuit = true};
         case SDLK_SPACE:
             return (SceneUpdateResult){.nextScene = scene_title_create, .shouldQuit = false};
+        case SDLK_A:
+        case SDLK_LEFT:
+            if (data->playerX > 12) data->playerX--;
+            return (SceneUpdateResult){.nextScene = nullptr, .shouldQuit = false};
+        case SDLK_D:
+        case SDLK_RIGHT:
+            if (data->playerX < 487) data->playerX++;
+            return (SceneUpdateResult){.nextScene = nullptr, .shouldQuit = false};
+        case SDLK_W:
+        case SDLK_UP:
+            if (data->playerY > 9) data->playerY--;
+            return (SceneUpdateResult){.nextScene = nullptr, .shouldQuit = false};
+        case SDLK_S:
+        case SDLK_DOWN:
+            if (data->playerY < 490) data->playerY++;
+            return (SceneUpdateResult){.nextScene = nullptr, .shouldQuit = false};
         default:
             return (SceneUpdateResult){.nextScene = nullptr, .shouldQuit = false};
         }
@@ -88,26 +128,38 @@ SceneUpdateResult scene_map_update(Scene *self, GlobalGameState *globalGameState
 }
 
 void scene_map_draw(Scene *self, GlobalGameState *globalGameState, SDL_Renderer *renderer) {
-    SDL_SetRenderDrawColor(renderer, 0, 0, 255, 255);
-    SDL_RenderClear(renderer);
-
     SceneMapData *data = (SceneMapData *)self->data;
 
-    for (int i = 0; i < data->textTextureCount; i++) {
-        SDL_Texture *texture = data->textTextures[i];
+    SDL_SetRenderDrawColor(renderer, 0, 0, 0, 255);
+    SDL_RenderClear(renderer);
 
-        float w, h;
-        SDL_GetTextureSize(texture, &w, &h);
-        SDL_RenderTexture(renderer, texture, nullptr, &(SDL_FRect){10.0f, 10.0f + (float)i * 30.0f, w, h});
+    for (int y = 0; y < 19; y++) {
+        for (int x = 0; x < 25; x++) {
+
+            int mapX = x + data->playerX - 12;
+            int mapY = y + data->playerY - 9;
+
+            if (x < 0 || x >= 475 || y < 0 || y >= 482) {
+                continue;
+            }
+
+            int tileCode = data->map[mapY][mapX];
+
+            int screenX = x * 50;
+            int screenY = y * 50;
+
+            SDL_RenderTexture(renderer, globalGameState->textureTiles[tileCode], nullptr,
+                              &(SDL_FRect){screenX, screenY, 50, 50});
+        }
     }
 }
 
 void scene_map_destroy(Scene *self, GlobalGameState *globalGameState, SDL_Renderer *renderer) {
+    printf("scene_map_destroy\n");
+
     SceneMapData *data = (SceneMapData *)self->data;
     lua_close(data->L);
-    for (int i = 0; i < data->textTextureCount; i++) {
-        SDL_DestroyTexture(data->textTextures[i]);
-    }
-    free(data->textTextures);
+
     if (self->data != nullptr) free(self->data);
+    self->data = nullptr;
 }
