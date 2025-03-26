@@ -1,39 +1,14 @@
-#include <stdio.h>
 #include <SDL3/SDL.h>
 #include <SDL3_ttf/SDL_ttf.h>
 #include <lua.h>
 #include <lauxlib.h>
 #include <lualib.h>
-#include <stdlib.h>
+#include "../include/scene.h"
+#include "../include/scene-title.h"
+#include "../include/game-state.h"
 
 SDL_Window *window = nullptr;
 SDL_Renderer *renderer = nullptr;
-SDL_Texture **textTextures = nullptr;
-int textureCount = 0;
-
-int drawString(lua_State *L) {
-    TTF_Font *font = TTF_OpenFont("resources/DejaVuSans.ttf", 36);
-    const char *text = luaL_checkstring(L, 1);
-    const int x = luaL_checkinteger(L, 2);
-    const int y = luaL_checkinteger(L, 3);
-
-    SDL_Surface *surfaceText = TTF_RenderText_Blended(font, text, strlen(text), (SDL_Color){255, 255, 255, 255});
-    SDL_Texture *textureText = SDL_CreateTextureFromSurface(renderer, surfaceText);
-
-    textTextures = realloc(textTextures, sizeof(SDL_Texture *) * (textureCount + 1));
-
-    textTextures[textureCount++] = textureText;
-
-    SDL_DestroySurface(surfaceText);
-
-    int textWidth, textHeight;
-    TTF_GetStringSize(font, text, strlen(text), &textWidth, &textHeight);
-
-    SDL_RenderTexture(renderer, textureText, nullptr, &(SDL_FRect){x, y, textWidth, textHeight});
-
-    TTF_CloseFont(font);
-    return 0;
-}
 
 int main() {
     window = nullptr;
@@ -46,37 +21,27 @@ int main() {
     window = SDL_CreateWindow("SDL3 Window", 640, 480, 0);
     renderer = SDL_CreateRenderer(window, nullptr);
 
-    SDL_SetRenderDrawColor(renderer, 0, 0, 255, 255);
-    SDL_RenderClear(renderer);
+    GlobalGameState gameState = globalGameState_create();
 
-    luaL_openlibs(L);
-    lua_pushcfunction(L, drawString);
-    lua_setglobal(L, "drawString");
-
-    if (luaL_dostring(L, "for i=0,8 do drawString(tostring(i) .. ' squared =' .. tostring(i * i), 10, i*50) end") != LUA_OK) {
-        fprintf(stderr, "Error: %s\n", lua_tostring(L, -1));
-        lua_pop(L, 1);
-    }
-
-    SDL_RenderPresent(renderer);
+    Scene currentScene = scene_title_create();
+    currentScene.init(&currentScene, &gameState, renderer);
 
     while (1) {
-        SDL_Event event;
+        currentScene.draw(&currentScene, &gameState, renderer);
+        SDL_RenderPresent(renderer);
+        SceneUpdateResult result = currentScene.update(&currentScene, &gameState, renderer);
 
-        while (SDL_PollEvent(&event)) {
-            if (event.type == SDL_EVENT_QUIT) {
-                goto cleanup;
-            }
+        if (result.shouldQuit) {
+            break;
+        } else if (result.nextScene != nullptr) {
+            currentScene.destroy(&currentScene, &gameState, renderer);
+            currentScene = result.nextScene();
+            currentScene.init(&currentScene, &gameState, renderer);
         }
     }
 
-cleanup:
-    for (int i = 0; i < textureCount; i++) {
-        SDL_DestroyTexture(textTextures[i]);
-    }
-    if (textTextures) {
-        free(textTextures);
-    }
+    currentScene.destroy(&currentScene, &gameState, renderer);
+    globalGameState_free(gameState);
     SDL_DestroyRenderer(renderer);
     SDL_DestroyWindow(window);
     SDL_Quit();

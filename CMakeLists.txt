@@ -10,6 +10,9 @@ add_subdirectory(vendored/lua EXCLUDE_FROM_ALL)
 
 set(SourceFiles
     src/main.c
+    src/game-state.c
+    src/scene-title.c
+    src/scene-map.c
 )
 
 add_executable(${PROJECT_NAME} ${SourceFiles})
