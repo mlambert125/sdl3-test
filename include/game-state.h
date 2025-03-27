@@ -12,7 +12,7 @@ constexpr int TILE_WATER = 4;
 
 typedef struct GlobalGameState {
     TTF_Font *fontDejaVuSans;
-    SDL_Texture* textureTiles[5];
+    SDL_Texture *textureTiles[5];
     char mapScript[255];
 } GlobalGameState;
 

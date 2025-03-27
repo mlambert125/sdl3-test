@@ -49,7 +49,6 @@ void scene_title_draw(Scene *self, GlobalGameState *globalGameState, SDL_Rendere
 
     SDL_SetRenderDrawColor(renderer, 255, 255, 255, 255);
 
-
     SDL_Surface *surfaceText =
         TTF_RenderText_Blended(globalGameState->fontDejaVuSans, text, strlen(text), (SDL_Color){255, 255, 255, 255});
     SDL_Texture *textureText = SDL_CreateTextureFromSurface(renderer, surfaceText);

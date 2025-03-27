@@ -8,4 +8,4 @@ for y = 0, 499 do
     end
 end
 setPlayerPosition(25, 25)
-printLuaTable({ x = 25, y = 25 })
+printLuaTable({ x = 25, y = 25, z = { { 1, 2, 3 }, { 4, 5, 6 } } })

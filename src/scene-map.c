@@ -9,11 +9,42 @@
 #include "../include/scene-title.h"
 
 int printLuaTable(lua_State *L) {
-    lua_pushnil(L);
-    while (lua_next(L, -2) != 0) {
-        printf("%s - %s\n", lua_tostring(L, -2), lua_tostring(L, -1));
+
+    lua_getfield(L, -1, "x");
+    int x = lua_tointeger(L, -1);
+    lua_pop(L, 1);
+
+    lua_getfield(L, -1, "y");
+    int y = lua_tointeger(L, -1);
+    lua_pop(L, 1);
+
+    if (!lua_getfield(L, -1, "nothing")) {
+        printf("Error: 'nothing' not found\n");
         lua_pop(L, 1);
     }
+
+    lua_getfield(L, -1, "z");
+    lua_pushnil(L);
+
+    while (lua_next(L, -2) != 0) {
+        lua_tointeger(L, -2);
+
+        lua_pushnil(L);
+
+        while (lua_next(L, -2) != 0) {
+            int key = lua_tointeger(L, -2);
+            int value = lua_tointeger(L, -1);
+
+            printf("(%d: %d)", key, value);
+            lua_pop(L, 1);
+        }
+        printf("\n");
+
+        lua_pop(L, 1);
+    }
+
+    printf("x: %d, y: %d\n", x, y);
+
     return 0;
 }
 
