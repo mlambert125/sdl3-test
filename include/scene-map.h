@@ -4,11 +4,26 @@
 #include <lua.h>
 #include "scene.h"
 
+constexpr int TILE_SIZE = 50;
+
+enum PendingMovementState {
+    PENDING_MOVEMENT_NONE,
+    PENDING_MOVEMENT_UP,
+    PENDING_MOVEMENT_DOWN,
+    PENDING_MOVEMENT_LEFT,
+    PENDING_MOVEMENT_RIGHT,
+};
+
 typedef struct SceneMapData {
     lua_State *L;
-    int map[500][500];
+    int **map;
+    int mapWidth;
+    int mapHeight;
     int playerX;
     int playerY;
+    enum PendingMovementState pendingMovement;
+    char pendingMovementTicks;
+    SDL_Texture *textureMap;
 } SceneMapData;
 
 Scene scene_map_create();

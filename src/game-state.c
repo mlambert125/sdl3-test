@@ -32,10 +32,10 @@ GlobalGameState globalGameState_create(SDL_Renderer *renderer) {
 }
 
 void globalGameState_free(GlobalGameState globalGameState) {
-    TTF_CloseFont(globalGameState.fontDejaVuSans);
-    SDL_DestroyTexture(globalGameState.textureTiles[TILE_GRASS]);
-    SDL_DestroyTexture(globalGameState.textureTiles[TILE_TREE]);
-    SDL_DestroyTexture(globalGameState.textureTiles[TILE_HILLS]);
-    SDL_DestroyTexture(globalGameState.textureTiles[TILE_MOUNTAINS]);
     SDL_DestroyTexture(globalGameState.textureTiles[TILE_WATER]);
+    SDL_DestroyTexture(globalGameState.textureTiles[TILE_MOUNTAINS]);
+    SDL_DestroyTexture(globalGameState.textureTiles[TILE_HILLS]);
+    SDL_DestroyTexture(globalGameState.textureTiles[TILE_TREE]);
+    SDL_DestroyTexture(globalGameState.textureTiles[TILE_GRASS]);
+    TTF_CloseFont(globalGameState.fontDejaVuSans);
 }

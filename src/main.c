@@ -7,33 +7,53 @@
 #include "../include/scene-title.h"
 #include "../include/game-state.h"
 
-SDL_Window *window = nullptr;
-SDL_Renderer *renderer = nullptr;
-
 int main() {
-    window = nullptr;
-    renderer = nullptr;
-    lua_State *L = luaL_newstate();
+    SDL_Window *window = nullptr;
+    SDL_Renderer *renderer = nullptr;
 
-    SDL_Init(SDL_INIT_VIDEO);
-    TTF_Init();
+    if (!SDL_Init(SDL_INIT_VIDEO)) {
+        printf("SDL_Init failed: %s\n", SDL_GetError());
+        return 1;
+    }
+
+    if (!TTF_Init()) {
+        printf("TTF_Init failed: %s\n", SDL_GetError());
+        SDL_Quit();
+        return 1;
+    }
 
     window = SDL_CreateWindow("SDL3 Window", 1250, 950, 0);
+
+    if (window == nullptr) {
+        printf("SDL_CreateWindow failed: %s\n", SDL_GetError());
+        TTF_Quit();
+        SDL_Quit();
+        return 1;
+    }
+
     renderer = SDL_CreateRenderer(window, nullptr);
+
+    if (renderer == nullptr) {
+        printf("SDL_CreateRenderer failed: %s\n", SDL_GetError());
+        SDL_DestroyWindow(window);
+        TTF_Quit();
+        SDL_Quit();
+        return 1;
+    }
 
     GlobalGameState gameState = globalGameState_create(renderer);
 
     Scene currentScene = scene_title_create();
     currentScene.init(&currentScene, &gameState, renderer);
 
-    while (1) {
+    SceneUpdateResult result = {.nextScene = nullptr, .shouldQuit = false};
+
+    while (!result.shouldQuit) {
         currentScene.draw(&currentScene, &gameState, renderer);
         SDL_RenderPresent(renderer);
-        SceneUpdateResult result = currentScene.update(&currentScene, &gameState, renderer);
+        result = currentScene.update(&currentScene, &gameState, renderer);
 
-        if (result.shouldQuit) {
-            break;
-        } else if (result.nextScene != nullptr) {
+        if (!result.shouldQuit && result.nextScene != nullptr) {
             currentScene.destroy(&currentScene, &gameState, renderer);
             currentScene = result.nextScene();
             currentScene.init(&currentScene, &gameState, renderer);
@@ -44,8 +64,8 @@ int main() {
     globalGameState_free(gameState);
     SDL_DestroyRenderer(renderer);
     SDL_DestroyWindow(window);
+    TTF_Quit();
     SDL_Quit();
-    lua_close(L);
 
     return 0;
 }
