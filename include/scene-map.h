@@ -3,8 +3,10 @@
 #include <SDL3/SDL_render.h>
 #include <lua.h>
 #include "scene.h"
+#include <stdint.h>
 
 constexpr int TILE_SIZE = 50;
+constexpr uint32_t moveDelay = 300;
 
 enum PendingMovementState {
     PENDING_MOVEMENT_NONE,
@@ -22,7 +24,7 @@ typedef struct SceneMapData {
     int playerX;
     int playerY;
     enum PendingMovementState pendingMovement;
-    char pendingMovementTicks;
+    uint64_t lastMoveTime;
     SDL_Texture *textureMap;
 } SceneMapData;
 
