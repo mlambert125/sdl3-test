@@ -6,7 +6,6 @@
 #include "../include/scene-map.h"
 
 Scene scene_title_create() {
-    printf("scene_title_create\n");
     void *data = malloc(sizeof(SceneTitleData));
     return (Scene){.init = scene_title_init,
                    .update = scene_title_update,
@@ -16,7 +15,7 @@ Scene scene_title_create() {
 }
 
 void scene_title_init(Scene *self, GlobalGameState *globalGameState, SDL_Renderer *renderer) {
-    printf("scene_title_init\n");
+    return;
 }
 
 SceneUpdateResult scene_title_update(Scene *self, GlobalGameState *globalGameState, SDL_Renderer *renderer) {
@@ -61,6 +60,5 @@ void scene_title_draw(Scene *self, GlobalGameState *globalGameState, SDL_Rendere
 }
 
 void scene_title_destroy(Scene *self, GlobalGameState *globalGameState, SDL_Renderer *renderer) {
-    printf("scene_title_destroy\n");
     if (self->data != nullptr) free(self->data);
 }

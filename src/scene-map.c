@@ -6,6 +6,7 @@
 #include <lauxlib.h>
 #include <lualib.h>
 #include "../include/scene-map.h"
+#include "../include/scene-title.h"
 
 int setTile(lua_State *L) {
     int x = luaL_checkinteger(L, 1);
@@ -16,7 +17,7 @@ int setTile(lua_State *L) {
     SceneMapData *data = lua_touserdata(L, -1);
 
     if (x < 0 || x >= data->mapWidth || y < 0 || y >= data->mapHeight) {
-        printf("Error: setTile out of bounds\n");
+        fprintf(stderr, "Error: setTile out of bounds\n");
         return 1;
     }
     data->map[y][x] = tileCode;
@@ -32,7 +33,7 @@ int setPlayerPosition(lua_State *L) {
     SceneMapData *data = lua_touserdata(L, -1);
 
     if (x < 12 || y < 9 || x >= data->mapWidth - 12 || y >= data->mapHeight - 9) {
-        printf("Error: setPlayerPosition out of bounds\n");
+        fprintf(stderr, "Error: setPlayerPosition out of bounds\n");
         return 1;
     }
 
@@ -55,7 +56,7 @@ int initMap(lua_State *L) {
     int height = luaL_checkinteger(L, 2);
 
     if (width < 25 || height < 19) {
-        printf("Error: initMap dimensions are too small\n");
+        fprintf(stderr, "Error: initMap dimensions are too small\n");
         return 1;
     }
 
@@ -72,7 +73,6 @@ int initMap(lua_State *L) {
 }
 
 Scene scene_map_create() {
-    printf("scene_map_create\n");
     SceneMapData *data = malloc(sizeof(SceneMapData));
 
     return (Scene){.init = scene_map_init,
@@ -83,52 +83,104 @@ Scene scene_map_create() {
 }
 
 void scene_map_init(Scene *self, GlobalGameState *globalGameState, SDL_Renderer *renderer) {
-    printf("scene_map_init\n");
-
     SceneMapData *data = (SceneMapData *)self->data;
-
-    int width = 25;
-    int height = 19;
-
-    data->map = (int **)malloc(height * sizeof(int *));
-
-    for (int i = 0; i < height; i++) {
-        data->map[i] = (int *)calloc(width, sizeof(int));
-    }
-
-    data->mapWidth = width;
-    data->mapHeight = height;
+    data->map = nullptr;
     data->playerX = 12;
     data->playerY = 9;
-    data->lastMoveTime = SDL_GetTicks();
-
+    data->movementStartTime = SDL_GetTicks();
     data->pendingMovement = PENDING_MOVEMENT_NONE;
+
+    char mapScriptPath[512];
+    sprintf(mapScriptPath, "resources/scripts/%s", globalGameState->mapScript);
 
     data->L = luaL_newstate();
     luaL_openlibs(data->L);
 
-    lua_register(data->L, "setTile", setTile);
-    lua_register(data->L, "setPlayerPosition", setPlayerPosition);
-    lua_register(data->L, "initMap", initMap);
-
-    lua_pushlightuserdata(data->L, renderer);
-    lua_setglobal(data->L, "renderer");
-
-    lua_pushlightuserdata(data->L, globalGameState);
-    lua_setglobal(data->L, "globalGameState");
-
-    lua_pushlightuserdata(data->L, self->data);
-    lua_setglobal(data->L, "sceneState");
-
-    char mapScriptPath[512];
-
-    sprintf(mapScriptPath, "resources/scripts/%s", globalGameState->mapScript);
-
     if (luaL_dofile(data->L, mapScriptPath) != LUA_OK) {
-        printf("Error: %s\n", lua_tostring(data->L, -1));
+        fprintf(stderr, "Error: %s\n", lua_tostring(data->L, -1));
         lua_pop(data->L, 1);
     }
 
+    if (!lua_istable(data->L, -1)) {
+        fprintf(stderr, "Error Processing Script: Expected table\n");
+        goto done_processing_script;
+    } else {
+        lua_pushnil(data->L);
+        while (lua_next(data->L, -2) != 0) {
+            char *key = (char *)lua_tostring(data->L, -2);
+
+            if (strcmp(key, "map") == 0) {
+                if (!lua_istable(data->L, -1)) {
+                    fprintf(stderr, "Error Processing Script: Expected table\n");
+                    goto done_processing_script;
+                }
+                lua_len(data->L, -1);
+                int row_count = (int)lua_tointeger(data->L, -1);
+                lua_pop(data->L, 1);
+
+                data->map = (int **)realloc(data->map, sizeof(int *) * row_count);
+                data->mapHeight = row_count;
+                data->mapWidth = 0;
+
+                for (int i = 0; i < row_count; ++i) {
+                    lua_rawgeti(data->L, -1, i + 1);
+                    if (!lua_istable(data->L, -1)) {
+                        fprintf(stderr, "Error Processing Script: Expected table for row %d\n", i);
+                        goto done_processing_script;
+                    }
+
+                    lua_len(data->L, -1);
+                    int col_count = (int)lua_tointeger(data->L, -1);
+                    lua_pop(data->L, 1);
+
+                    if (data->mapWidth == 0) {
+                        data->mapWidth = col_count;
+                    } else if (col_count != data->mapWidth) {
+                        fprintf(stderr, "Error: Inconsistent column count at row %d\n", i);
+                        goto done_processing_script;
+                    }
+
+                    data->map[i] = malloc(sizeof(int) * col_count);
+
+                    for (int j = 0; j < col_count; ++j) {
+                        lua_rawgeti(data->L, -1, j + 1);
+                        data->map[i][j] = (int)lua_tointeger(data->L, -1);
+                        lua_pop(data->L, 1);
+                    }
+                    lua_pop(data->L, 1);
+                }
+                lua_pop(data->L, 1);
+            } else if (strcmp(key, "playerPosition") == 0) {
+                if (!lua_istable(data->L, -1)) {
+                    fprintf(stderr, "Error Processing Script: Expected table\n");
+                    goto done_processing_script;
+                }
+
+                lua_len(data->L, -1);
+                int table_size = (int)lua_tointeger(data->L, -1);
+                lua_pop(data->L, 1);
+
+                if (table_size != 2) {
+                    fprintf(stderr, "Error: playerPosition table should have exactly 2 elements\n");
+                    goto done_processing_script;
+                }
+
+                lua_rawgeti(data->L, -1, 1);
+                data->playerX = (int)luaL_checkinteger(data->L, -1);
+                lua_pop(data->L, 1);
+
+                lua_rawgeti(data->L, -1, 2);
+                data->playerY = (int)luaL_checkinteger(data->L, -1);
+                lua_pop(data->L, 1);
+
+                lua_pop(data->L, 1);
+            } else {
+                fprintf(stderr, "Warning: Unhandled key '%s' in script\n", key);
+            }
+        }
+    }
+
+done_processing_script:
     data->textureMap = SDL_CreateTexture(renderer, SDL_PIXELFORMAT_RGBA8888, SDL_TEXTUREACCESS_TARGET,
                                          data->mapWidth * TILE_SIZE, data->mapHeight * TILE_SIZE);
 
@@ -152,7 +204,7 @@ uint64_t ticksElapsedSince(uint64_t lastTime) {
 SceneUpdateResult scene_map_update(Scene *self, GlobalGameState *globalGameState, SDL_Renderer *renderer) {
     SceneMapData *data = (SceneMapData *)self->data;
     SDL_Event event;
-    uint64_t timeSinceLastMove = ticksElapsedSince(data->lastMoveTime);
+    uint64_t timeSinceLastMove = ticksElapsedSince(data->movementStartTime);
 
     while (SDL_PollEvent(&event)) {
         if (event.type == SDL_EVENT_QUIT) {
@@ -162,9 +214,7 @@ SceneUpdateResult scene_map_update(Scene *self, GlobalGameState *globalGameState
     const bool *keys = SDL_GetKeyboardState(NULL);
 
     if (keys[SDL_SCANCODE_ESCAPE] || keys[SDL_SCANCODE_Q]) {
-        return (SceneUpdateResult){.nextScene = nullptr, .shouldQuit = true};
-    } else if (keys[SDL_SCANCODE_SPACE]) {
-        // return (SceneUpdateResult){.nextScene = scene_title_create, .shouldQuit = false};
+        return (SceneUpdateResult){.nextScene = scene_title_create, .shouldQuit = false};
     }
 
     if (data->pendingMovement != PENDING_MOVEMENT_NONE && timeSinceLastMove < moveDelay) {
@@ -183,16 +233,19 @@ SceneUpdateResult scene_map_update(Scene *self, GlobalGameState *globalGameState
 
         if ((keys[SDL_SCANCODE_LEFT] || keys[SDL_SCANCODE_A]) && data->playerX > 12 && timeSinceLastMove >= moveDelay) {
             data->pendingMovement = PENDING_MOVEMENT_LEFT;
-            data->lastMoveTime = SDL_GetTicks();
-        } else if ((keys[SDL_SCANCODE_RIGHT] || keys[SDL_SCANCODE_D]) && data->playerX < data->mapWidth - 13 && timeSinceLastMove >= moveDelay) {
+            data->movementStartTime = SDL_GetTicks();
+        } else if ((keys[SDL_SCANCODE_RIGHT] || keys[SDL_SCANCODE_D]) && data->playerX < data->mapWidth - 13 &&
+                   timeSinceLastMove >= moveDelay) {
             data->pendingMovement = PENDING_MOVEMENT_RIGHT;
-            data->lastMoveTime = SDL_GetTicks();
-        } else if ((keys[SDL_SCANCODE_UP] || keys[SDL_SCANCODE_W]) && data->playerY > 9 && timeSinceLastMove >= moveDelay) {
+            data->movementStartTime = SDL_GetTicks();
+        } else if ((keys[SDL_SCANCODE_UP] || keys[SDL_SCANCODE_W]) && data->playerY > 9 &&
+                   timeSinceLastMove >= moveDelay) {
             data->pendingMovement = PENDING_MOVEMENT_UP;
-            data->lastMoveTime = SDL_GetTicks();
-        } else if ((keys[SDL_SCANCODE_DOWN] || keys[SDL_SCANCODE_S]) && data->playerY < data->mapHeight - 10 && timeSinceLastMove >= moveDelay) {
+            data->movementStartTime = SDL_GetTicks();
+        } else if ((keys[SDL_SCANCODE_DOWN] || keys[SDL_SCANCODE_S]) && data->playerY < data->mapHeight - 10 &&
+                   timeSinceLastMove >= moveDelay) {
             data->pendingMovement = PENDING_MOVEMENT_DOWN;
-            data->lastMoveTime = SDL_GetTicks();
+            data->movementStartTime = SDL_GetTicks();
         }
 
         return (SceneUpdateResult){.nextScene = nullptr, .shouldQuit = false};
@@ -210,17 +263,17 @@ void scene_map_draw(Scene *self, GlobalGameState *globalGameState, SDL_Renderer 
     int yOffset = (data->playerY - 9) * TILE_SIZE;
 
     if (data->pendingMovement != PENDING_MOVEMENT_NONE) {
-        uint64_t timeSinceLastMove = ticksElapsedSince(data->lastMoveTime);
-        double pixelOffset  = ((double)timeSinceLastMove / moveDelay) * TILE_SIZE;
+        uint64_t timeSinceLastMove = ticksElapsedSince(data->movementStartTime);
+        double pixelOffset = ((double)timeSinceLastMove / moveDelay) * TILE_SIZE;
 
         if (data->pendingMovement == PENDING_MOVEMENT_LEFT) {
-            xOffset -= pixelOffset; // Move left
+            xOffset -= pixelOffset;
         } else if (data->pendingMovement == PENDING_MOVEMENT_RIGHT) {
-            xOffset += pixelOffset; // Move right
+            xOffset += pixelOffset;
         } else if (data->pendingMovement == PENDING_MOVEMENT_UP) {
-            yOffset -= pixelOffset; // Move up
+            yOffset -= pixelOffset;
         } else if (data->pendingMovement == PENDING_MOVEMENT_DOWN) {
-            yOffset += pixelOffset; // Move down
+            yOffset += pixelOffset;
         }
     }
 
@@ -229,8 +282,6 @@ void scene_map_draw(Scene *self, GlobalGameState *globalGameState, SDL_Renderer 
 }
 
 void scene_map_destroy(Scene *self, GlobalGameState *globalGameState, SDL_Renderer *renderer) {
-    printf("scene_map_destroy\n");
-
     SceneMapData *data = (SceneMapData *)self->data;
     lua_close(data->L);
 

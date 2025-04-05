@@ -24,7 +24,7 @@ typedef struct SceneMapData {
     int playerX;
     int playerY;
     enum PendingMovementState pendingMovement;
-    uint64_t lastMoveTime;
+    uint64_t movementStartTime;
     SDL_Texture *textureMap;
 } SceneMapData;
 
