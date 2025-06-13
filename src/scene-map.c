@@ -8,73 +8,8 @@
 #include "../include/scene-map.h"
 #include "../include/scene-title.h"
 
-int setTile(lua_State *L) {
-    int x = luaL_checkinteger(L, 1);
-    int y = luaL_checkinteger(L, 2);
-    int tileCode = luaL_checkinteger(L, 3);
-
-    lua_getglobal(L, "sceneState");
-    SceneMapData *data = lua_touserdata(L, -1);
-
-    if (x < 0 || x >= data->mapWidth || y < 0 || y >= data->mapHeight) {
-        fprintf(stderr, "Error: setTile out of bounds\n");
-        return 1;
-    }
-    data->map[y][x] = tileCode;
-
-    return 0;
-}
-
-int setPlayerPosition(lua_State *L) {
-    int x = luaL_checkinteger(L, 1);
-    int y = luaL_checkinteger(L, 2);
-
-    lua_getglobal(L, "sceneState");
-    SceneMapData *data = lua_touserdata(L, -1);
-
-    if (x < 12 || y < 9 || x >= data->mapWidth - 12 || y >= data->mapHeight - 9) {
-        fprintf(stderr, "Error: setPlayerPosition out of bounds\n");
-        return 1;
-    }
-
-    data->playerX = x;
-    data->playerY = y;
-
-    return 0;
-}
-
-int initMap(lua_State *L) {
-    lua_getglobal(L, "sceneState");
-    SceneMapData *data = lua_touserdata(L, -1);
-
-    for (int i = 0; i < data->mapHeight; i++) {
-        free(data->map[i]);
-    }
-    free(data->map);
-
-    int width = luaL_checkinteger(L, 1);
-    int height = luaL_checkinteger(L, 2);
-
-    if (width < 25 || height < 19) {
-        fprintf(stderr, "Error: initMap dimensions are too small\n");
-        return 1;
-    }
-
-    data->map = (int **)malloc(height * sizeof(int *));
-
-    for (int i = 0; i < height; i++) {
-        data->map[i] = (int *)malloc(width * sizeof(int));
-    }
-
-    data->mapWidth = width;
-    data->mapHeight = height;
-
-    return 0;
-}
-
 Scene scene_map_create() {
     SceneMapData *data = malloc(sizeof(SceneMapData));
-
     return (Scene){.init = scene_map_init,
                    .update = scene_map_update,
                    .draw = scene_map_draw,
